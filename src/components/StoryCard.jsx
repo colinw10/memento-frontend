@@ -1,6 +1,6 @@
 /**
  * Story Card Component
- * 🟠 CRYSTAL's Task (Part of Story Feed - Size: M)
+ * 🟠 CRISTAL's Task (Part of Story Feed - Size: M)
  * 
  * Displays a single story in the feed.
  * Shows title, preview, author, likes, and comment count.
@@ -10,29 +10,29 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toggleLike } from '../services/storyService';
 
+
+ // Get current user from auth context
 function StoryCard({ story, onLikeUpdate }) {
-  // TODO: Get current user from auth context
   const { user, isAuthenticated } = useAuth();
 
-  // TODO: Check if current user has liked this story
-  // PSEUDOCODE:
-  // 1. story.likes is an array of user IDs
-  // 2. Check if user?._id is in story.likes
-  // 3. Store result in hasLiked variable
+  // Check if current user has liked this story
 
-  const hasLiked = false; // TODO: Check if user._id is in story.likes
+  const hasLiked = user ? story.likes?.includes(user._id) : false;
 
 
-  // TODO: Implement like handler
-  // PSEUDOCODE:
-  // 1. If not authenticated, maybe redirect to login or show message
-  // 2. Call toggleLike(story._id)
-  // 3. Call onLikeUpdate with the updated story to update parent state
+  // Implement like handler
+const handleLike = async () => {
+    if (!isAuthenticated) {
+      alert("You must be logged in to like stories.");
+      return;
+    }
 
-  const handleLike = async () => {
-    // TODO: Check if authenticated
-    // TODO: Call toggleLike API
-    // TODO: Call onLikeUpdate with result
+    try {
+      const updatedStory = await toggleLike(story._id);
+      onLikeUpdate(updatedStory);
+    } catch (err) {
+      console.error("Failed to toggle like:", err);
+    }
   };
 
 

@@ -1,4 +1,4 @@
-# Crystal's Tasks - Frontend Components
+# Cristal's Tasks - Frontend Components
 
 ## Overview
 

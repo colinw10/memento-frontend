@@ -1,6 +1,6 @@
 /**
  * Login Page
- * 🟠 CRYSTAL's Task (Auth Forms - Size: M)
+ * 🟠 CRISTAL's Task (Auth Forms - Size: M)
  * 
  * Login form with email and password fields.
  * Redirects to home on successful login.
@@ -10,14 +10,9 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-function Login() {
-  // TODO: Set up form state
-  // PSEUDOCODE:
-  // - email: '' (input value)
-  // - password: '' (input value)
-  // - error: null (display login errors)
-  // - loading: false (disable button while submitting)
 
+  // Set up form state
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -27,26 +22,21 @@ function Login() {
   const navigate = useNavigate();
 
 
-  // TODO: Handle form submission
-  // PSEUDOCODE:
-  // 1. Prevent default form behavior
-  // 2. setLoading(true), setError(null)
-  // 3. Try:
-  //    - Call login({ email, password })
-  //    - On success, navigate to '/'
-  // 4. Catch:
-  //    - setError with error message (error.response?.data?.message or generic)
-  // 5. Finally: setLoading(false)
+  // Handle form submission
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // TODO: setLoading(true)
-    // TODO: setError(null)
-    // TODO: Try login({ email, password })
-    // TODO: navigate('/') on success
-    // TODO: Catch and setError
-    // TODO: Finally setLoading(false)
-  };
+  try {
+    await login({ email, password });
+    navigate("/");
+  } catch (err) {
+    setError(err.response?.data?.message || "Login failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
 
   return (
