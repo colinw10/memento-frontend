@@ -1,0 +1,142 @@
+# Memento Frontend - Team Guide
+
+## Project Tree
+
+```
+memento-frontend/
+│
+├── index.html                # Entry HTML
+├── package.json
+├── vite.config.js            # Vite configuration
+├── .env.example              # Copy to .env
+├── .gitignore
+│
+├── src/
+│   ├── main.jsx              # App entry point
+│   ├── App.jsx               # Routes setup
+│   │
+│   ├── context/
+│   │   └── AuthContext.jsx   # 🟠 CRYSTAL - Auth state management
+│   │
+│   ├── services/
+│   │   ├── api.js            # 🟠 CRYSTAL - Axios setup
+│   │   ├── authService.js    # 🟠 CRYSTAL - Auth API calls
+│   │   ├── storyService.js   # 🟠 CRYSTAL - Story API calls
+│   │   └── commentService.js # 🟣 TITO - Comment API calls
+│   │
+│   ├── components/
+│   │   ├── Navbar.jsx        # 🔴 PABLO - Navigation
+│   │   ├── ProtectedRoute.jsx# 🟠 CRYSTAL - Route protection
+│   │   ├── StoryCard.jsx     # 🟠 CRYSTAL - Story display
+│   │   └── CommentSection.jsx# 🟣 TITO - Comments component
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx          # 🟠 CRYSTAL - Story feed
+│   │   ├── Login.jsx         # 🟠 CRYSTAL - Login form
+│   │   ├── Signup.jsx        # 🟠 CRYSTAL - Signup form
+│   │   ├── StoryDetail.jsx   # 🔴 PABLO - Full story view
+│   │   └── CreateStory.jsx   # 🔴 PABLO - New story form
+│   │
+│   └── styles/
+│       └── global.css        # 🔴 PABLO - Styling
+│
+└── docs/
+    ├── TEAM-README.md        # You are here!
+    └── team-plan/
+        ├── crystal.md        # 🟠 Detailed tasks + pseudocode
+        ├── tito.md           # 🟣 Detailed tasks + pseudocode
+        └── pablo.md          # 🔴 Integration tasks
+```
+
+---
+
+## Team Assignments
+
+| Color | Name        | Files                                              | Tasks                            |
+| ----- | ----------- | -------------------------------------------------- | -------------------------------- |
+| 🟠    | **CRYSTAL** | Services, AuthContext, Auth pages, StoryCard, Home | API layer, Auth flow, Story feed |
+| 🟣    | **TITO**    | `commentService.js`, `CommentSection.jsx`          | Comment functionality            |
+| 🔴    | **PABLO**   | Navbar, StoryDetail, CreateStory, CSS              | Integration, styling             |
+
+---
+
+## Getting Started
+
+### 1. Fork & Clone
+
+```bash
+git clone <your-fork-url>
+cd memento-frontend
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Setup Environment
+
+```bash
+cp .env.example .env
+# Edit .env with backend URL if different
+```
+
+### 4. Create Your Branch
+
+```bash
+git checkout -b feature/your-name-task
+# Example: feature/crystal-auth
+```
+
+### 5. Run the App
+
+```bash
+npm run dev
+```
+
+App runs at http://localhost:5173
+
+---
+
+## Your Task Files
+
+- **Crystal** → Read `docs/team-plan/crystal.md`
+- **Tito** → Read `docs/team-plan/tito.md`
+- **Pablo** → Read `docs/team-plan/pablo.md`
+
+---
+
+## Important Notes
+
+### Backend Required
+
+The frontend needs the backend running to work. Make sure to:
+
+1. Clone the backend repo
+2. Run `npm run dev` in backend first
+3. Then run frontend
+
+### API Proxy
+
+Vite is configured to proxy `/api` requests to `localhost:5000`. If backend runs on different port, update `vite.config.js`.
+
+---
+
+## Workflow
+
+1. Read your task file in `docs/team-plan/`
+2. Find the TODO comments in your assigned files
+3. Implement following the pseudocode
+4. Test in browser
+5. Commit and push
+6. Create Pull Request
+
+---
+
+## Need Help?
+
+1. Check your task file for pseudocode
+2. Look at the TODO comments in the code
+3. Check browser DevTools console/network tab
+4. Ask a teammate in Slack/Discord
