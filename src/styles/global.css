@@ -76,11 +76,11 @@ select {
   appearance: none;
   background: linear-gradient(120deg, #262937cc 0%, #0cb6e55a 100%);
   color: #fefeffc9;
-  border: 1px solid #0cb6e5;
+  border: 1px solid #0cb6e5d9;
   border-radius: 8px;
-  font-size: 1.21rem;
+  font-size: 1rem;
   min-width: 220px;
-  min-height: 48px;
+  min-height: 38px;
   box-shadow: 0 2px 8px #0cb6e544;
   padding: 0.2em 1.2em 0.2em 1.2em;
   transition: background 0.3s, box-shadow 0.3s, border 0.2s;
@@ -99,7 +99,7 @@ textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
 textarea:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #0f4f711d inset !important;
+  -webkit-box-shadow: 0 0 0 1000px #0f4f7150 inset !important;
   -webkit-text-fill-color: #fefeffc9 !important;
   transition: background-color 5000s ease-in-out 0s !important;
   background: linear-gradient(10deg, #23272a 0%, #0cb6e555 100%) !important;
@@ -169,8 +169,8 @@ select:focus {
 }
 
 .btn-primary {
-  background: radial-gradient(circle at center, rgba(0, 179, 255, 0.425) 0%, rgba(0, 150, 200, 0.15) 100%);
-  border: 1px solid rgba(5, 176, 210, 0.801);
+  background: radial-gradient(circle at center, rgba(0, 179, 255, 0.526) 0%, rgba(0, 150, 200, 0.15) 100%);
+  border: 1px solid rgba(5, 176, 210, 0.617);
   color: #ffffff;
 }
 
@@ -181,7 +181,7 @@ select:focus {
 }
 
 .btn-secondary {
-  background: radial-gradient(circle at center, rgba(242, 173, 229, 0.351) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: radial-gradient(circle at center, rgba(242, 173, 229, 0.465) 0%, rgba(255, 255, 255, 0.05) 100%);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
 }

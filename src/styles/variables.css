@@ -11,7 +11,7 @@
   --color-accent-tertiary: #8b5cf6;
   
   /* Text colors */
-  --color-text-primary: #e4e4e7dc;
+  --color-text-primary: #e4e4e7c0;
   --color-text-secondary: #a1a1aa;
   --color-text-muted: #71717a;
   
@@ -25,7 +25,7 @@
   --color-border-focus: var(--color-accent-primary);
   
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 2px rgba(230, 20, 20, 0.5);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 20px rgba(0, 212, 255, 0.15);
