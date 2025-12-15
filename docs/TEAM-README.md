@@ -31,7 +31,7 @@ memento-frontend/
 │   │   └── CommentSection.jsx# 🟣 TITO - Comments component
 │   │
 │   ├── pages/
-│   │   ├── Home.jsx          # 🟠 CRISTAL - Story feed
+│   │   ├── Home/Home.jsx     # 🟠 CRISTAL - Story feed (landing particles implemented by 🔴 PABLO)
 │   │   ├── Login.jsx         # 🟠 CRISTAL - Login form
 │   │   ├── Signup.jsx        # 🟠 CRISTAL - Signup form
 │   │   ├── StoryDetail.jsx   # 🔴 PABLO - Full story view
@@ -52,11 +52,11 @@ memento-frontend/
 
 ## Team Assignments
 
-| Color | Name        | Files                                              | Tasks                            |
-| ----- | ----------- | -------------------------------------------------- | -------------------------------- |
-| 🟠    | **CRISTAL** | Services, AuthContext, Auth pages, StoryCard, Home | API layer, Auth flow, Story feed |
-| 🟣    | **TITO**    | `commentService.js`, `CommentSection.jsx`          | Comment functionality            |
-| 🔴    | **PABLO**   | Navbar, StoryDetail, CreateStory, CSS              | Integration, styling             |
+| Color | Name        | Files                                                                    | Tasks                            |
+| ----- | ----------- | ------------------------------------------------------------------------ | -------------------------------- |
+| 🟠    | **CRISTAL** | Services, AuthContext, Auth pages, StoryCard, Home                       | API layer, Auth flow, Story feed |
+| 🟣    | **TITO**    | `commentService.js`, `CommentSection.jsx`                                | Comment functionality            |
+| 🔴    | **PABLO**   | Navbar, StoryDetail, CreateStory, CSS, Landing/particles (Home/Home.jsx) | Integration, styling             |
 
 ---
 
