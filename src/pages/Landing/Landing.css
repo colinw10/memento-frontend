@@ -1,0 +1,79 @@
+/* Landing Page Styles */
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+.landing-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #0e98f4, #ff15f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary, #a0a0a0);
+  margin-bottom: 2rem;
+}
+
+.landing-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.landing-actions .btn {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.landing-actions .btn:hover {
+  transform: translateY(-2px);
+}
+
+.landing-actions .btn-primary {
+  background: linear-gradient(135deg, #0e98f4, #ff15f7);
+  color: white;
+  border: none;
+}
+
+.landing-actions .btn-secondary {
+  background: transparent;
+  color: var(--text-primary, #fff);
+  border: 1px solid var(--border-color, #333);
+}
+
+@media (max-width: 600px) {
+  .landing-title {
+    font-size: 2.5rem;
+  }
+  
+  .landing-subtitle {
+    font-size: 1rem;
+  }
+  
+  .landing-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
