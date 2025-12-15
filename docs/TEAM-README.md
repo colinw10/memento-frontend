@@ -16,24 +16,24 @@ memento-frontend/
 │   ├── App.jsx               # Routes setup
 │   │
 │   ├── context/
-│   │   └── AuthContext.jsx   # 🟠 CRYSTAL - Auth state management
+│   │   └── AuthContext.jsx   # 🟠 CRISTAL - Auth state management
 │   │
 │   ├── services/
-│   │   ├── api.js            # 🟠 CRYSTAL - Axios setup
-│   │   ├── authService.js    # 🟠 CRYSTAL - Auth API calls
-│   │   ├── storyService.js   # 🟠 CRYSTAL - Story API calls
+│   │   ├── api.js            # 🟠 CRISTAL - Axios setup
+│   │   ├── authService.js    # 🟠 CRISTAL - Auth API calls
+│   │   ├── storyService.js   # 🟠 CRISTAL - Story API calls
 │   │   └── commentService.js # 🟣 TITO - Comment API calls
 │   │
 │   ├── components/
 │   │   ├── Navbar.jsx        # 🔴 PABLO - Navigation
-│   │   ├── ProtectedRoute.jsx# 🟠 CRYSTAL - Route protection
-│   │   ├── StoryCard.jsx     # 🟠 CRYSTAL - Story display
+│   │   ├── ProtectedRoute.jsx# 🟠 CRISTAL - Route protection
+│   │   ├── StoryCard.jsx     # 🟠 CRISTAL - Story display
 │   │   └── CommentSection.jsx# 🟣 TITO - Comments component
 │   │
 │   ├── pages/
-│   │   ├── Home.jsx          # 🟠 CRYSTAL - Story feed
-│   │   ├── Login.jsx         # 🟠 CRYSTAL - Login form
-│   │   ├── Signup.jsx        # 🟠 CRYSTAL - Signup form
+│   │   ├── Home.jsx          # 🟠 CRISTAL - Story feed
+│   │   ├── Login.jsx         # 🟠 CRISTAL - Login form
+│   │   ├── Signup.jsx        # 🟠 CRISTAL - Signup form
 │   │   ├── StoryDetail.jsx   # 🔴 PABLO - Full story view
 │   │   └── CreateStory.jsx   # 🔴 PABLO - New story form
 │   │
@@ -43,7 +43,7 @@ memento-frontend/
 └── docs/
     ├── TEAM-README.md        # You are here!
     └── team-plan/
-        ├── crystal.md        # 🟠 Detailed tasks + pseudocode
+        ├── cristal.md        # 🟠 Detailed tasks + pseudocode
         ├── tito.md           # 🟣 Detailed tasks + pseudocode
         └── pablo.md          # 🔴 Integration tasks
 ```
@@ -54,7 +54,7 @@ memento-frontend/
 
 | Color | Name        | Files                                              | Tasks                            |
 | ----- | ----------- | -------------------------------------------------- | -------------------------------- |
-| 🟠    | **CRYSTAL** | Services, AuthContext, Auth pages, StoryCard, Home | API layer, Auth flow, Story feed |
+| 🟠    | **CRISTAL** | Services, AuthContext, Auth pages, StoryCard, Home | API layer, Auth flow, Story feed |
 | 🟣    | **TITO**    | `commentService.js`, `CommentSection.jsx`          | Comment functionality            |
 | 🔴    | **PABLO**   | Navbar, StoryDetail, CreateStory, CSS              | Integration, styling             |
 
@@ -101,7 +101,7 @@ App runs at http://localhost:5173
 
 ## Your Task Files
 
-- **Crystal** → Read `docs/team-plan/crystal.md`
+- **Cristal** → Read `docs/team-plan/crystal.md`
 - **Tito** → Read `docs/team-plan/tito.md`
 - **Pablo** → Read `docs/team-plan/pablo.md`
 

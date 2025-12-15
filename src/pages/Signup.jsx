@@ -1,6 +1,6 @@
 /**
  * Signup Page
- * 🟠 CRYSTAL's Task (Auth Forms - Size: M)
+ * 🟠 CRISTAL's Task (Auth Forms - Size: M)
  * 
  * Registration form with username, email, and password fields.
  * Redirects to home on successful signup.
@@ -10,16 +10,10 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-function Signup() {
-  // TODO: Set up form state
-  // PSEUDOCODE:
-  // - username: '' (input value)
-  // - email: '' (input value)
-  // - password: '' (input value)
-  // - confirmPassword: '' (input value for validation)
-  // - error: null (display signup errors)
-  // - loading: false (disable button while submitting)
 
+
+//Set up form state
+function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,32 +25,28 @@ function Signup() {
   const navigate = useNavigate();
 
 
-  // TODO: Handle form submission
-  // PSEUDOCODE:
-  // 1. Prevent default form behavior
-  // 2. Validate passwords match - if not, setError and return
-  // 3. setLoading(true), setError(null)
-  // 4. Try:
-  //    - Call signup({ username, email, password })
-  //    - On success, navigate to '/'
-  // 5. Catch:
-  //    - setError with error message
-  // 6. Finally: setLoading(false)
+  //Handle form submission
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log("Signup submitted");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // TODO: Check if passwords match
-    // if (password !== confirmPassword) { setError(...); return; }
-    
-    // TODO: setLoading(true)
-    // TODO: setError(null)
-    // TODO: Try signup({ username, email, password })
-    // TODO: navigate('/') on success
-    // TODO: Catch and setError
-    // TODO: Finally setLoading(false)
-  };
+  if (password !== confirmPassword) {
+    setError("Passwords do not match");
+    return;
+  }
 
+  setLoading(true);
+  setError(null);
+
+  try {
+    await signup({ username, email, password });
+    navigate("/");
+  } catch (err) {
+    setError(err.response?.data?.message || "Signup failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="auth-page">
