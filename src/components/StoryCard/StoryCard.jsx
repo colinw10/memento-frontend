@@ -7,8 +7,9 @@
  */
 
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { toggleLike } from '../services/storyService';
+import { useAuth } from '../../context/AuthContext';
+import { toggleLike } from '../../services/storyService';
+import './StoryCard.css';
 
 
  // Get current user from auth context
