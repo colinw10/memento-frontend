@@ -8,10 +8,14 @@
 
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
+import './Login.css';
 
+<<<<<<< HEAD:src/pages/Login.jsx
 
   // Set up form state
+=======
+>>>>>>> 92cf580 (refactor: move components and pages to folders, remove old single-file components/pages):src/pages/Login/Login.jsx
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,6 +25,7 @@ function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+<<<<<<< HEAD:src/pages/Login.jsx
 
   // Handle form submission
 const handleSubmit = async (e) => {
@@ -37,15 +42,24 @@ const handleSubmit = async (e) => {
     setLoading(false);
   }
 };
-
+=======
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // TODO: setLoading(true)
+    // TODO: setError(null)
+    // TODO: Try login({ email, password })
+    // TODO: navigate('/') on success
+    // TODO: Catch and setError
+    // TODO: Finally setLoading(false)
+  };
+>>>>>>> 92cf580 (refactor: move components and pages to folders, remove old single-file components/pages):src/pages/Login/Login.jsx
 
   return (
     <div className="auth-page">
-      <div className="auth-form-container">
-        <h1>Login</h1>
+      <div className="auth-card">
+        <h1 className="auth-title">Login</h1>
 
-        {/* Error display */}
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
@@ -53,6 +67,7 @@ const handleSubmit = async (e) => {
             <input
               type="email"
               id="email"
+              className="auth-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
@@ -65,6 +80,7 @@ const handleSubmit = async (e) => {
             <input
               type="password"
               id="password"
+              className="auth-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
@@ -72,7 +88,7 @@ const handleSubmit = async (e) => {
             />
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" className="btn btn-primary auth-submit" disabled={loading}>
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>

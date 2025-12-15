@@ -7,7 +7,8 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createStory } from '../services/storyService';
+import { createStory } from '../../services/storyService';
+import './CreateStory.css';
 
 function CreateStory() {
   const [title, setTitle] = useState('');
@@ -34,11 +35,11 @@ function CreateStory() {
 
   return (
     <div className="create-story-page">
-      <h1>Share Your Story</h1>
+      <h1 className="create-story-title">Share Your Story</h1>
 
       {error && <div className="error-message">{error}</div>}
 
-      <form onSubmit={handleSubmit} className="story-form">
+      <form onSubmit={handleSubmit} className="create-story-form">
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input
@@ -60,10 +61,11 @@ function CreateStory() {
             placeholder="Write your story..."
             rows={10}
             required
+            className="create-story-textarea"
           />
         </div>
 
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? 'Publishing...' : 'Publish Story'}
         </button>
       </form>
