@@ -1,17 +1,14 @@
 /**
- * Home Page
- * 🟠 CRISTAL's Task (Story Feed - Size: M)
- * 
- * Main page that displays all stories in a feed.
+ * Home Page (Story Feed)
+ * 🟠 CRISTAL - Story feed for authenticated users
  */
 
 import { useState, useEffect } from 'react';
-import { getAllStories } from '../services/storyService';
-import StoryCard from '../components/StoryCard';
+import { getAllStories, toggleLike } from '../../services/storyService';
+import StoryCard from '../../components/StoryCard/StoryCard';
+import './Home.css';
 
-  //Set up state
 function Home() {
-
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -84,6 +81,5 @@ useEffect(() => {
     </div>
   );
 }
-
 
 export default Home;
