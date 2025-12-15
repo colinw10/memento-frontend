@@ -8,11 +8,9 @@
 
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
+import './Signup.css';
 
-
-
-//Set up form state
 function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -24,37 +22,34 @@ function Signup() {
   const { signup } = useAuth();
   const navigate = useNavigate();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Signup submitted");
 
-  //Handle form submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  console.log("Signup submitted");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
-  if (password !== confirmPassword) {
-    setError("Passwords do not match");
-    return;
-  }
+    setLoading(true);
+    setError(null);
 
-  setLoading(true);
-  setError(null);
-
-  try {
-    await signup({ username, email, password });
-    navigate("/");
-  } catch (err) {
-    setError(err.response?.data?.message || "Signup failed");
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      await signup({ username, email, password });
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Signup failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="auth-page">
-      <div className="auth-form-container">
-        <h1>Sign Up</h1>
+      <div className="auth-card">
+        <h1 className="auth-title">Sign Up</h1>
 
-        {/* Error display */}
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
@@ -62,6 +57,7 @@ const handleSubmit = async (e) => {
             <input
               type="text"
               id="username"
+              className="auth-input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Choose a username"
@@ -74,6 +70,7 @@ const handleSubmit = async (e) => {
             <input
               type="email"
               id="email"
+              className="auth-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
@@ -86,6 +83,7 @@ const handleSubmit = async (e) => {
             <input
               type="password"
               id="password"
+              className="auth-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Create a password"
@@ -99,6 +97,7 @@ const handleSubmit = async (e) => {
             <input
               type="password"
               id="confirmPassword"
+              className="auth-input"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
@@ -106,7 +105,7 @@ const handleSubmit = async (e) => {
             />
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" className="btn btn-primary auth-submit" disabled={loading}>
             {loading ? 'Creating account...' : 'Sign Up'}
           </button>
         </form>

@@ -7,9 +7,10 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { getStoryById, deleteStory, toggleLike } from '../services/storyService';
-import CommentSection from '../components/CommentSection';
+import { useAuth } from '../../context/AuthContext';
+import { getStoryById, deleteStory, toggleLike } from '../../services/storyService';
+import CommentSection from '../../components/CommentSection';
+import './StoryDetail.css';
 
 function StoryDetail() {
   const { id } = useParams();

@@ -1,0 +1,235 @@
+.story-full {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.story-full-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: var(--space-md);
+  line-height: 1.2;
+  background: linear-gradient(140deg, #00d4ff 0%, #cbb6fbf2 50%, #ff006e 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+}
+
+.story-full-meta {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.story-full-author {
+  color: var(--color-accent-primary);
+  font-weight: 500;
+}
+
+.story-full-date {
+  color: var(--color-text-muted);
+}
+
+.story-full-content {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-bottom: var(--space-xl);
+}
+
+.story-full-content p {
+  margin-bottom: var(--space-md);
+}
+
+.story-full-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.story-full-actions {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  padding: var(--space-xs);
+}
+
+.icon-btn:hover {
+  color: var(--color-accent-primary);
+}
+
+.icon-btn.liked {
+  color: var(--color-error);
+}
+
+.icon-btn .icon {
+  font-size: 1.25rem;
+}
+
+.icon-btn .icon-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-btn .count {
+  font-size: 0.875rem;
+}
+
+.story-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.btn-danger {
+  background: transparent;
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+}
+
+.btn-danger:hover {
+  background: var(--color-error);
+  color: white;
+}
+
+.comments-section {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.comments-title {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-lg);
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.comment {
+  padding: var(--space-md);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.comment-author {
+  color: var(--color-accent-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.comment-date {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+.comment-content {
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+}
+
+.comment-delete {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  margin-top: var(--space-sm);
+  padding: 0;
+}
+
+.comment-delete:hover {
+  color: var(--color-error);
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background: transparent;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  width: 100%;
+  max-width: 500px;
+  margin: var(--space-lg);
+  box-shadow: 
+    0 0 30px rgba(0, 212, 255, 0.1),
+    inset 0 0 60px rgba(255, 255, 255, 0.02);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.modal-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--color-text-primary);
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+  margin-top: var(--space-md);
+}

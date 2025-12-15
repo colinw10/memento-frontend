@@ -1,0 +1,57 @@
+.create-story-page {
+  max-width: 600px;
+}
+
+.create-story-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: var(--space-xl);
+  letter-spacing: 4px;
+  background: linear-gradient(140deg, #00d4ff 0%, #cbb6fbf2 50%, #ff006e 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.create-story-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.create-story-textarea {
+  resize: vertical;
+  min-height: 250px;
+}
+
+.char-count {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: right;
+  margin-top: var(--space-xs);
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+}
+
+.create-story-form .btn {
+  width: auto;
+  align-self: center;
+}
