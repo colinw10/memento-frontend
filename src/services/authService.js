@@ -10,6 +10,7 @@ import api from "./api";
 // Implement signup function
 
 export const signup = async (userData) => {
+  console.log("Calling signup API", userData);
   const res = await api.post("/auth/signup", userData);
   return res.data;
 };

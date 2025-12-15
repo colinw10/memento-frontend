@@ -23,10 +23,15 @@ function Home() {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const data = await getAllStories();
-        setStories(data);
+        //const response = await getAllStories();
+        //console.log("Stories response:", response);
+        const response = [
+        { _id: "1", title: "Mock Story", content: "This is a test story", author: { username: "testuser" }, likes: [], createdAt: new Date() }
+      ];
+        setStories(response); // make sure this is an array
       } catch (err) {
-        setError(err.response?.data?.message || "Failed to load stories");
+        console.error(err);
+        setError("Failed to load stories");
       } finally {
         setLoading(false);
       }
