@@ -11,12 +11,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Signup.css';
 
-<<<<<<< HEAD:src/pages/Signup.jsx
-
-
-//Set up form state
-=======
->>>>>>> 92cf580 (refactor: move components and pages to folders, remove old single-file components/pages):src/pages/Signup/Signup.jsx
 function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -28,44 +22,28 @@ function Signup() {
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-<<<<<<< HEAD:src/pages/Signup.jsx
-
-  //Handle form submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  console.log("Signup submitted");
-
-  if (password !== confirmPassword) {
-    setError("Passwords do not match");
-    return;
-  }
-
-  setLoading(true);
-  setError(null);
-
-  try {
-    await signup({ username, email, password });
-    navigate("/");
-  } catch (err) {
-    setError(err.response?.data?.message || "Signup failed");
-  } finally {
-    setLoading(false);
-  }
-};
-
-=======
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Check if passwords match
-    // TODO: setLoading(true)
-    // TODO: setError(null)
-    // TODO: Try signup({ username, email, password })
-    // TODO: navigate('/') on success
-    // TODO: Catch and setError
-    // TODO: Finally setLoading(false)
+    console.log("Signup submitted");
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      await signup({ username, email, password });
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Signup failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
->>>>>>> 92cf580 (refactor: move components and pages to folders, remove old single-file components/pages):src/pages/Signup/Signup.jsx
   return (
     <div className="auth-page">
       <div className="auth-card">

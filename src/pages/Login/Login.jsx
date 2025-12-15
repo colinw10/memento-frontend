@@ -11,11 +11,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Login.css';
 
-<<<<<<< HEAD:src/pages/Login.jsx
-
-  // Set up form state
-=======
->>>>>>> 92cf580 (refactor: move components and pages to folders, remove old single-file components/pages):src/pages/Login/Login.jsx
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,34 +20,20 @@ function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-<<<<<<< HEAD:src/pages/Login.jsx
-
-  // Handle form submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError(null);
-
-  try {
-    await login({ email, password });
-    navigate("/");
-  } catch (err) {
-    setError(err.response?.data?.message || "Login failed");
-  } finally {
-    setLoading(false);
-  }
-};
-=======
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: setLoading(true)
-    // TODO: setError(null)
-    // TODO: Try login({ email, password })
-    // TODO: navigate('/') on success
-    // TODO: Catch and setError
-    // TODO: Finally setLoading(false)
+    setLoading(true);
+    setError(null);
+
+    try {
+      await login({ email, password });
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
->>>>>>> 92cf580 (refactor: move components and pages to folders, remove old single-file components/pages):src/pages/Login/Login.jsx
 
   return (
     <div className="auth-page">
