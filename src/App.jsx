@@ -1,16 +1,19 @@
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar.jsx';
-import Home from './pages/Home.jsx';
-import Login from './pages/Login.jsx';
-import Signup from './pages/Signup.jsx';
-import StoryDetail from './pages/StoryDetail.jsx';
-import CreateStory from './pages/CreateStory.jsx';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar.jsx';
+import Home from './pages/Home/Home.jsx';
+import Login from './pages/Login/Login.jsx';
+import Signup from './pages/Signup/Signup.jsx';
+import StoryDetail from './pages/StoryDetail/StoryDetail.jsx';
+import CreateStory from './pages/CreateStory/CreateStory.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function App() {
+  const location = useLocation();
+  const hideNavbar = ['/', '/login', '/signup'].includes(location.pathname);
+
   return (
     <div className="app">
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
