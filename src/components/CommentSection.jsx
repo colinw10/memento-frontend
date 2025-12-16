@@ -83,7 +83,7 @@ function CommentSection({ storyId }) {
             rows={3}
           />
           <button type="submit" disabled={!newComment.trim()}>
-            Post Comment
+            Post 
           </button>
         </form>
       ) : (

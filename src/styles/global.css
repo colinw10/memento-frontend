@@ -53,7 +53,8 @@ a {
 }
 
 a:hover {
-  color: var(--color-accent-secondary);
+  color: var(--color-accent-tertiary);
+  text-shadow: 0 0 2px var(--color-accent-tertiary), 0 0 2px #ffffff42;
 }
 
 button {
