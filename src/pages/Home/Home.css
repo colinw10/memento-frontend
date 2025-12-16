@@ -177,3 +177,10 @@
 .error {
   color: var(--color-error);
 }
+
+/* Home container */
+.home {
+  padding: var(--space-xl);
+  max-width: 800px;
+  margin: 0 auto;
+}

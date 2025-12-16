@@ -8,6 +8,21 @@ You're building the comment system for the frontend! This connects to your backe
 
 ---
 
+## ⚠️ CURRENT STATUS - WHAT NEEDS TO BE DONE
+
+The files exist but have **TODO placeholders** instead of working code. You need to replace the TODOs with actual implementations.
+
+### Files to Complete:
+
+1. `src/services/commentService.js` - All 3 functions are empty shells
+2. `src/components/CommentSection.jsx` - Has TODO placeholders in useEffect, handleSubmit, and handleDelete
+
+### CSS is already done!
+
+The styles are in `src/pages/StoryDetail/StoryDetail.css` - you don't need to write CSS.
+
+---
+
 ## Task: Comment Section Component (Size: M)
 
 **Files:**
@@ -21,57 +36,57 @@ A component that shows comments on a story and lets users add/delete comments.
 
 ---
 
-## Step 1: Comment Service
+## Step 1: Comment Service (INCOMPLETE - NEEDS YOUR CODE)
 
 **File:** `src/services/commentService.js`
 
-### Functions to Implement
+### Current State:
+
+```javascript
+export const getCommentsByStory = async (storyId) => {
+  // TODO: GET /stories/:storyId/comments  <-- EMPTY, needs code
+};
+```
+
+### What You Need to Write:
 
 ```javascript
 // Get all comments for a story
 export const getCommentsByStory = async (storyId) => {
-  // GET /stories/:storyId/comments
-  // Return response.data
+  const res = await api.get(`/stories/${storyId}/comments`);
+  return res.data;
 };
 
 // Create a new comment
 export const createComment = async (storyId, commentData) => {
-  // POST /stories/:storyId/comments
-  // Send { content: commentData.content }
-  // Return response.data
+  const res = await api.post(`/stories/${storyId}/comments`, commentData);
+  return res.data;
 };
 
 // Delete a comment
 export const deleteComment = async (commentId) => {
-  // DELETE /comments/:commentId
-  // Return response.data
+  const res = await api.delete(`/comments/${commentId}`);
+  return res.data;
 };
-```
-
-### Testing the Service
-
-```javascript
-// In browser console (after import):
-const comments = await getCommentsByStory("some-story-id");
-console.log(comments);
 ```
 
 ---
 
-## Step 2: Comment Section Component
+## Step 2: Comment Section Component (INCOMPLETE - NEEDS YOUR CODE)
 
 **File:** `src/components/CommentSection.jsx`
 
-### State You Need
+### Current State:
 
-```javascript
-const [comments, setComments] = useState([]);
-const [newComment, setNewComment] = useState("");
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState(null);
-```
+The component has the structure but the functions are empty:
 
-### Fetch Comments on Mount
+- `useEffect` → has TODO, doesn't actually fetch comments
+- `handleSubmit` → has TODO, doesn't actually post comments
+- `handleDelete` → has TODO, doesn't actually delete comments
+
+### What You Need to Fix:
+
+#### 1. Fix the useEffect (around line 42-49):
 
 ```javascript
 useEffect(() => {
@@ -91,7 +106,7 @@ useEffect(() => {
 }, [storyId]);
 ```
 
-### Handle Submit
+#### 2. Fix handleSubmit (around line 63-68):
 
 ```javascript
 const handleSubmit = async (e) => {
@@ -100,13 +115,39 @@ const handleSubmit = async (e) => {
 
   try {
     const comment = await createComment(storyId, { content: newComment });
-    setComments([...comments, comment]); // or [comment, ...comments] for newest first
+    setComments([comment, ...comments]); // Add new comment to top
     setNewComment("");
   } catch (err) {
     setError(err.response?.data?.message || "Failed to add comment");
   }
 };
 ```
+
+#### 3. Fix handleDelete (around line 83-87):
+
+```javascript
+const handleDelete = async (commentId) => {
+  try {
+    await deleteComment(commentId);
+    setComments(comments.filter((c) => c._id !== commentId));
+  } catch (err) {
+    setError(err.response?.data?.message || "Failed to delete comment");
+  }
+};
+```
+
+---
+
+try {
+const comment = await createComment(storyId, { content: newComment });
+setComments([...comments, comment]); // or [comment, ...comments] for newest first
+setNewComment("");
+} catch (err) {
+setError(err.response?.data?.message || "Failed to add comment");
+}
+};
+
+````
 
 ### Handle Delete
 
@@ -119,7 +160,7 @@ const handleDelete = async (commentId) => {
     setError(err.response?.data?.message || "Failed to delete comment");
   }
 };
-```
+````
 
 ---
 
