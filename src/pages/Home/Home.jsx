@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { getAllStories, toggleLike } from '../../services/storyService';
+import { getAllStories } from '../../services/storyService';
 import StoryCard from '../../components/StoryCard/StoryCard';
 import './Home.css';
 
@@ -31,16 +31,11 @@ function Home() {
     }
   };
 
-  // Handle like toggle
-  const handleLike = async (storyId) => {
-    try {
-      const updatedStory = await toggleLike(storyId);
-      setStories(stories.map(story => 
-        story._id === storyId ? updatedStory : story
-      ));
-    } catch (err) {
-      console.error('Failed to like story:', err);
-    }
+  // Handle like update - receives the updated story from StoryCard
+  const handleLikeUpdate = (updatedStory) => {
+    setStories(stories.map(story => 
+      story._id === updatedStory._id ? updatedStory : story
+    ));
   };
 
 
@@ -87,7 +82,7 @@ function Home() {
             <StoryCard 
               key={story._id} 
               story={story} 
-              onLike={handleLike}
+              onLikeUpdate={handleLikeUpdate}
               index={index}
             />
           ))}
