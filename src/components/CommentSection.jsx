@@ -11,13 +11,6 @@ import { useAuth } from '../context/AuthContext';
 import { getCommentsByStory, createComment, deleteComment } from '../services/commentService';
 
 function CommentSection({ storyId }) {
-  // TODO: Set up state
-  // PSEUDOCODE:
-  // - comments: [] (array of comment objects)
-  // - newComment: '' (input field value)
-  // - loading: true (for initial load)
-  // - error: null (for any errors)
-
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [loading, setLoading] = useState(true);
@@ -26,64 +19,45 @@ function CommentSection({ storyId }) {
   // Get auth state
   const { user, isAuthenticated } = useAuth();
 
-
-  // TODO: Fetch comments when component mounts or storyId changes
-  // PSEUDOCODE:
-  // useEffect(() => {
-  //   1. Define async function fetchComments:
-  //      - setLoading(true)
-  //      - Try: call getCommentsByStory(storyId)
-  //      - setComments with the result
-  //      - Catch: setError with error message
-  //      - Finally: setLoading(false)
-  //   2. Call fetchComments()
-  // }, [storyId])
-
   useEffect(() => {
     const fetchComments = async () => {
-      // TODO: setLoading(true)
-      // TODO: Try getCommentsByStory(storyId)
-      // TODO: setComments with result
-      // TODO: Catch and setError
-      // TODO: Finally setLoading(false)
+      setLoading(true);
+      try {
+        const data = await getCommentsByStory(storyId);
+        setComments(data);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Failed to load comments');
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchComments();
   }, [storyId]);
 
 
-  // TODO: Handle new comment submission
-  // PSEUDOCODE:
-  // 1. Prevent default form behavior
-  // 2. If newComment is empty, return early
-  // 3. Try:
-  //    - Call createComment(storyId, { content: newComment })
-  //    - Add new comment to comments array (at beginning or end)
-  //    - Clear newComment input
-  // 4. Catch: setError with error message
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Check if newComment is empty
-    // TODO: Call createComment API
-    // TODO: Add new comment to state: setComments([...comments, newComment]) or prepend
-    // TODO: Clear input: setNewComment('')
-    // TODO: Handle errors
+    if (!newComment.trim()) return;
+    
+    try {
+      const comment = await createComment(storyId, { content: newComment });
+      setComments([comment, ...comments]);
+      setNewComment('');
+      setError(null);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to post comment');
+    }
   };
 
 
-  // TODO: Handle comment deletion
-  // PSEUDOCODE:
-  // 1. Accept commentId as parameter
-  // 2. Try:
-  //    - Call deleteComment(commentId)
-  //    - Remove comment from state by filtering
-  // 3. Catch: setError with error message
-
   const handleDelete = async (commentId) => {
-    // TODO: Call deleteComment API
-    // TODO: Filter out deleted comment: setComments(comments.filter(c => c._id !== commentId))
-    // TODO: Handle errors
+    try {
+      await deleteComment(commentId);
+      setComments(comments.filter(c => c._id !== commentId));
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to delete comment');
+    }
   };
 
 
