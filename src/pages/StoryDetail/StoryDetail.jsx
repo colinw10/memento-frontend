@@ -226,7 +226,7 @@ function StoryDetail() {
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
-                  Post Comment
+                  Post
                 </button>
               </div>
             </form>
