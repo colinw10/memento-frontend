@@ -53,7 +53,7 @@ function StoryDetail() {
     if (!window.confirm('Are you sure you want to delete this story?')) return;
     try {
       await deleteStory(id);
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete story');
     }

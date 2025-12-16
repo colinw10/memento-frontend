@@ -36,7 +36,7 @@ function Signup() {
 
     try {
       await signup({ username, email, password });
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
     } finally {
