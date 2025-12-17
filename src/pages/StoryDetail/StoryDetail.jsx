@@ -104,8 +104,8 @@ function StoryDetail() {
   if (error) return <div className="error">{error}</div>;
   if (!story) return <div className="not-found">Story not found</div>;
 
-  const isAuthor = user?._id === story?.author?._id;
-  const hasLiked = story?.likes?.includes(user?._id);
+  const isAuthor = user?.id === story?.author?._id || user?._id === story?.author?._id;
+  const hasLiked = story?.likes?.includes(user?.id) || story?.likes?.includes(user?._id);
   const formattedDate = new Date(story.createdAt).toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',

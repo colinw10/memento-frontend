@@ -5,9 +5,10 @@
  * Form to create a new story.
  */
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createStory } from '../../services/storyService';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { createStory, getStoryById, updateStory } from '../../services/storyService';
 import './CreateStory.css';
 
 function CreateStory() {
@@ -17,6 +18,36 @@ function CreateStory() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { user } = useAuth();
+  const isEditing = !!id;
+
+  useEffect(() => {
+    if (isEditing) {
+      fetchStory();
+    }
+  }, [id]);
+
+  const fetchStory = async () => {
+    try {
+      setLoading(true);
+      const story = await getStoryById(id);
+      
+      // Check if the current user is the author
+      const userId = user?.id || user?._id;
+      if (user && story.author._id !== userId) {
+        navigate('/home');
+        return;
+      }
+
+      setTitle(story.title);
+      setContent(story.content);
+    } catch (err) {
+      setError('Failed to load story for editing');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,10 +55,15 @@ function CreateStory() {
     setError(null);
 
     try {
-      const story = await createStory({ title, content });
-      navigate(`/story/${story._id}`);
+      if (isEditing) {
+        await updateStory(id, { title, content });
+        navigate(`/story/${id}`);
+      } else {
+        const story = await createStory({ title, content });
+        navigate(`/story/${story._id}`);
+      }
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to create story');
+      setError(err.response?.data?.message || `Failed to ${isEditing ? 'update' : 'create'} story`);
     } finally {
       setLoading(false);
     }
@@ -35,7 +71,7 @@ function CreateStory() {
 
   return (
     <div className="create-story-page">
-      <h1 className="create-story-title">Share Your Story</h1>
+      <h1 className="create-story-title">{isEditing ? 'Edit Your Story' : 'Share Your Story'}</h1>
 
       {error && <div className="error-message">{error}</div>}
 
@@ -67,12 +103,12 @@ function CreateStory() {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? 'Posting...' : 'Post'}
+            {loading ? (isEditing ? 'Updating...' : 'Posting...') : (isEditing ? 'Update' : 'Post')}
           </button>
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => navigate('/')}
+            onClick={() => navigate(isEditing ? `/story/${id}` : '/home')}
             disabled={loading}
           >
             Cancel
