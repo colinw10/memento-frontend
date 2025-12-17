@@ -49,6 +49,7 @@ function CreateStory() {
     }
   };
 
+  // Handles the form submission for creating or updating a story.
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -73,9 +74,12 @@ function CreateStory() {
     <div className="create-story-page">
       <h1 className="create-story-title">{isEditing ? 'Edit Your Story' : 'Share Your Story'}</h1>
 
+      {/* Error display: shows any error message from the API or validation */}
       {error && <div className="error-message">{error}</div>}
 
+      {/* Form for entering the story title and content. */}
       <form onSubmit={handleSubmit} className="create-story-form">
+        {/* Title input field */}
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input
@@ -88,6 +92,7 @@ function CreateStory() {
           />
         </div>
 
+        {/* Content textarea field */}
         <div className="form-group">
           <label htmlFor="content">Your Story</label>
           <textarea
@@ -101,6 +106,7 @@ function CreateStory() {
           />
         </div>
 
+        {/* Action buttons: Post/Update and Cancel */}
         <div className="form-actions">
           <button type="submit" className="btn btn-primary" disabled={loading}>
             {loading ? (isEditing ? 'Updating...' : 'Posting...') : (isEditing ? 'Update' : 'Post')}

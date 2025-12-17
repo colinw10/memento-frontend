@@ -9,7 +9,6 @@ import api from "./api";
 
 // Get all stories
 
-
 export const getAllStories = async () => {
   const res = await api.get("/stories");
   return res.data;
@@ -46,6 +45,6 @@ export const deleteStory = async (id) => {
 //Toggle like on a story
 
 export const toggleLike = async (id) => {
-  const res = await api.post(`/stories/${id}/like`);
+  const res = await api.put(`/stories/${id}/like`);
   return res.data;
 };
