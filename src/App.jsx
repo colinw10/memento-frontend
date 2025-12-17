@@ -23,6 +23,14 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/story/:id" element={<StoryDetail />} />
           <Route
+            path="/story/:id/edit"
+            element={
+              <ProtectedRoute>
+                <CreateStory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/create"
             element={
               <ProtectedRoute>

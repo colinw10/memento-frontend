@@ -17,15 +17,15 @@ function ParticleField() {
         scale={20}
         size={10}
         speed={0.4}
-        opacity={0.8}
+        opacity={0.5}
         color="#00d4ff"
       />
       
       {/* Secondary Accent Sparkles */}
       <Sparkles 
-        count={100}
+        count={120}
         scale={15}
-        size={14}
+        size={12}
         speed={0.1}
         opacity={0.6}
         color="#ff006e"
@@ -48,13 +48,13 @@ function Landing() {
   return (
     <div className="landing">
       <div className="canvas-container">
-        <Canvas camera={{ position: [0, 5, 5], fov: 60 }}>
+        <Canvas camera={{ position: [0, 5, 5], fov: 150 }}>
           {/* Ambient light for general visibility if we add 3D objects later */}
           <ambientLight intensity={0.5} />
           
           {/* Floating animation container for organic movement */}
           <Float 
-            speed={1} 
+            speed={.5} 
             rotationIntensity={0.1} 
             floatIntensity={0.3} 
             floatingRange={[-0.2, 5.2]}
@@ -63,7 +63,7 @@ function Landing() {
           </Float>
           
           {/* Distant stars for depth */}
-          <Stars radius={150} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+          <Stars radius={350} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
         </Canvas>
       </div>
 
