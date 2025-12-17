@@ -37,9 +37,8 @@ function Login() {
 
   return (
     <div className="auth-page">
+      <h1 className="auth-title">Login</h1>
       <div className="auth-card">
-        <h1 className="auth-title">Login</h1>
-
         {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">

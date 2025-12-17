@@ -82,7 +82,7 @@ function CommentSection({ storyId }) {
             placeholder="Write a comment..."
             rows={3}
           />
-          <button type="submit" disabled={!newComment.trim()}>
+          <button type="submit" className="btn btn-primary" disabled={!newComment.trim()}>
             Post 
           </button>
         </form>

@@ -5,13 +5,19 @@
  * Navigation bar with links and auth status.
  */
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Navbar.css';
 
 function Navbar() {
   const { user, logout, isAuthenticated } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <nav className="navbar">
@@ -55,7 +61,7 @@ function Navbar() {
               </div>
               <span className="user-name">{user?.username}</span>
             </div>
-            <button onClick={logout} className="navbar-logout">
+            <button onClick={handleLogout} className="btn navbar-logout-btn">
               <span>Logout</span>
             </button>
           </div>

@@ -25,6 +25,7 @@ function Home() {
       const data = await getAllStories();
       setStories(data);
     } catch (err) {
+      console.error("Error fetching stories:", err);
       setError('Failed to load stories');
     } finally {
       setLoading(false);
