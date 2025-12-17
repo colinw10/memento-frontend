@@ -97,6 +97,12 @@
   gap: var(--space-sm);
 }
 
+.story-actions .btn {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  min-width: auto;
+}
+
 .btn-danger {
   background: transparent;
   border: 1px solid var(--color-error);
