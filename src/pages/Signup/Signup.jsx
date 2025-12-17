@@ -46,9 +46,8 @@ function Signup() {
 
   return (
     <div className="auth-page">
+      <h1 className="auth-title">Sign Up</h1>
       <div className="auth-card">
-        <h1 className="auth-title">Sign Up</h1>
-
         {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
