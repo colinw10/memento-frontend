@@ -8,175 +8,104 @@ You're building the frontend experience! Your tasks focus on the service layer a
 
 ---
 
-## Task 1: API Service Layer (Size: S)
+## ⚠️ CURRENT STATUS - WHAT'S DONE vs WHAT NEEDS WORK
+
+### ✅ COMPLETED:
+
+- `src/services/api.js` - Axios instance with interceptors (DONE)
+- `src/services/authService.js` - Auth API calls (DONE)
+- `src/services/storyService.js` - Story API calls (DONE)
+- `src/context/AuthContext.jsx` - Auth state management (DONE)
+- `src/components/ProtectedRoute.jsx` - Route protection (DONE)
+
+### ⚠️ NEEDS ATTENTION:
+
+- `src/pages/Home/Home.jsx` - Currently has landing page logic mixed in. The feed part works but you may need to test it with the backend.
+- `src/components/StoryCard/StoryCard.jsx` - Works but uses `onLikeUpdate` prop, make sure your Home.jsx passes the right handler.
+
+### 📁 FILE LOCATIONS CHANGED:
+
+Files have been moved to folders:
+
+- `src/pages/Home.jsx` → `src/pages/Home/Home.jsx`
+- `src/pages/Login.jsx` → `src/pages/Login/Login.jsx`
+- `src/pages/Signup.jsx` → `src/pages/Signup/Signup.jsx`
+- `src/components/StoryCard.jsx` → `src/components/StoryCard/StoryCard.jsx`
+
+### 🛣️ ROUTING CHANGE:
+
+- `/` now shows the Landing page (particles, login/signup buttons)
+- `/home` shows the story feed (your Home.jsx)
+- After login, users should be redirected to `/home` (not `/`)
+
+---
+
+## Task 1: API Service Layer (Size: S) ✅ DONE
 
 **File:** `src/services/api.js`
 
-### What You're Building
+This is complete! The axios instance has:
 
-A configured axios instance that automatically attaches JWT tokens to requests.
-
-### Steps
-
-1. **Create axios instance**
-
-   ```javascript
-   const api = axios.create({
-     baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
-     headers: {
-       "Content-Type": "application/json",
-     },
-   });
-   ```
-
-2. **Add request interceptor**
-
-   - Get token from `localStorage.getItem('token')`
-   - If token exists, add `Authorization: Bearer ${token}` header
-   - Return config
-
-3. **Add response interceptor**
-   - On 401 error, clear localStorage token
-   - Return rejected promise for errors
-
-### Testing
-
-Open browser console and check network requests have Authorization header.
+- baseURL configured
+- Request interceptor that adds JWT token
+- Response interceptor that handles 401 errors
 
 ---
 
-## Task 2: Auth Forms (Size: M)
+## Task 2: Auth Forms (Size: M) ✅ MOSTLY DONE
 
 **Files:**
 
-- `src/services/authService.js`
-- `src/context/AuthContext.jsx`
-- `src/components/ProtectedRoute.jsx`
-- `src/pages/Login.jsx`
-- `src/pages/Signup.jsx`
+- `src/services/authService.js` ✅
+- `src/context/AuthContext.jsx` ✅
+- `src/components/ProtectedRoute.jsx` ✅
+- `src/pages/Login/Login.jsx` ✅
+- `src/pages/Signup/Signup.jsx` ✅
 
-### What You're Building
+### ⚠️ ONE THING TO CHECK:
 
-Complete authentication flow - signup, login, logout, and protected routes.
+Make sure Login.jsx redirects to `/home` after successful login (not `/`):
 
-### Steps
-
-#### authService.js
-
-1. `signup(userData)` - POST to `/auth/signup`
-2. `login(credentials)` - POST to `/auth/login`
-3. `verifyToken()` - GET to `/auth/verify`
-
-#### AuthContext.jsx
-
-1. State: `user`, `loading`, `error`
-2. On mount: Check for token, verify if exists
-3. `login()`: Call API, store token, set user
-4. `signup()`: Call API, store token, set user
-5. `logout()`: Clear token, clear user
-
-#### ProtectedRoute.jsx
-
-1. Check `isAuthenticated` from context
-2. If not authenticated, `<Navigate to="/login" />`
-3. If authenticated, render children
-
-#### Login.jsx & Signup.jsx
-
-1. Form state for inputs
-2. Call auth context methods
-3. Navigate to `/` on success
-4. Display errors
-
-### Testing
-
-```bash
-# Try signup with new user
-# Try login with existing user
-# Check token in localStorage
-# Refresh page - should stay logged in
-# Logout - token should be gone
+```javascript
+navigate("/home"); // NOT navigate("/")
 ```
 
 ---
 
-## Task 3: Story Feed (Size: M)
+## Task 3: Story Feed (Size: M) ⚠️ NEEDS TESTING
 
 **Files:**
 
-- `src/services/storyService.js`
-- `src/components/StoryCard.jsx`
-- `src/pages/Home.jsx`
+- `src/services/storyService.js` ✅ DONE
+- `src/components/StoryCard/StoryCard.jsx` ✅ DONE
+- `src/pages/Home/Home.jsx` ⚠️ NEEDS TESTING
 
-### What You're Building
+### What's Done:
 
-The main feed showing all stories with like functionality.
+- storyService.js has all API calls implemented
+- StoryCard.jsx displays stories with like button
 
-### Steps
+### What You Need to Verify:
 
-#### storyService.js
+#### Home.jsx - Check the like handler matches StoryCard's expected prop:
 
-Implement all the API calls:
+StoryCard expects `onLikeUpdate` prop:
 
-- `getAllStories()` - GET `/stories`
-- `getStoryById(id)` - GET `/stories/:id`
-- `createStory(data)` - POST `/stories`
-- `updateStory(id, data)` - PUT `/stories/:id`
-- `deleteStory(id)` - DELETE `/stories/:id`
-- `toggleLike(id)` - POST `/stories/:id/like`
-
-#### Home.jsx
-
-1. Fetch stories on mount using `useEffect`
-2. Store in state
-3. Map over stories, render `StoryCard` for each
-4. Pass `onLikeUpdate` handler to update state after like
-
-#### StoryCard.jsx
-
-1. Display story title, preview, author, date
-2. Check if current user has liked (`story.likes.includes(user._id)`)
-3. Like button calls `toggleLike`, updates parent via `onLikeUpdate`
-
-### Testing
-
-```bash
-# Load home page - should see stories
-# Click like - count should update
-# Like again - should toggle off
+```javascript
+<StoryCard
+  key={story._id}
+  story={story}
+  onLikeUpdate={handleLikeUpdate} // Make sure this matches!
+/>
 ```
 
----
+The current Home.jsx may be passing `onLike` instead. Check and fix if needed.
 
-## Checklist
+#### Test with Backend:
 
-### API Service
-
-- [ ] Axios instance created with baseURL
-- [ ] Request interceptor adds token
-- [ ] Response interceptor handles 401
-
-### Auth Forms
-
-- [ ] authService functions work
-- [ ] AuthContext provides user state
-- [ ] Login form works
-- [ ] Signup form works
-- [ ] ProtectedRoute redirects correctly
-- [ ] Token persists on refresh
-
-### Story Feed
-
-- [ ] storyService functions work
-- [ ] Home page loads stories
-- [ ] StoryCard displays correctly
-- [ ] Like toggle works
+1. Run the backend server
+2. Create a test story
+3. Verify stories load on `/home`
+4. Test like/unlike functionality
 
 ---
-
-## Tips
-
-- Use `try/catch` for all async calls
-- Check the Network tab in DevTools to debug API calls
-- Console.log liberally while developing
-- Ask for help if stuck!

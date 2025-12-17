@@ -109,17 +109,63 @@ App runs at http://localhost:5173
 
 ## Important Notes
 
-### Backend Required
+### Backend Setup (Required)
 
-The frontend needs the backend running to work. Make sure to:
+The frontend needs the backend running. Follow these steps:
 
-1. Clone the backend repo
-2. Run `npm run dev` in backend first
-3. Then run frontend
+```bash
+# 1. Navigate to the backend folder
+cd memento-backend
 
-### API Proxy
+# 2. Install dependencies
+npm install
 
-Vite is configured to proxy `/api` requests to `localhost:5000`. If backend runs on different port, update `vite.config.js`.
+# 3. Copy the environment file (already configured with shared MongoDB)
+cp .env.example .env
+
+# 4. Start the backend server
+npm run dev
+```
+
+Backend runs at `http://localhost:3000`
+
+### Dev User Credentials
+
+Use this account to login and test the app:
+
+| Email             | Password     |
+| ----------------- | ------------ |
+| `dev@memento.com` | `devpass123` |
+
+### Frontend Setup
+
+```bash
+# 1. Navigate to frontend folder
+cd memento-frontend
+
+# 2. Install dependencies
+npm install
+
+# 3. Copy environment file
+cp .env.example .env
+
+# 4. Start the frontend
+npm run dev
+```
+
+Frontend runs at `http://localhost:5173`
+
+### Quick Start (Both)
+
+```bash
+# Terminal 1 - Backend
+cd memento-backend && npm install && npm run dev
+
+# Terminal 2 - Frontend
+cd memento-frontend && npm install && npm run dev
+```
+
+Then open http://localhost:5173 and login with `dev@memento.com` / `devpass123`
 
 ---
 

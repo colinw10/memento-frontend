@@ -8,6 +8,21 @@ You're building the comment system for the frontend! This connects to your backe
 
 ---
 
+## ⚠️ CURRENT STATUS - WHAT NEEDS TO BE DONE
+
+The files exist but have **TODO placeholders** instead of working code. You need to replace the TODOs with actual implementations.
+
+### Files to Complete:
+
+1. `src/services/commentService.js` - All 3 functions are empty shells
+2. `src/components/CommentSection.jsx` - Has TODO placeholders in useEffect, handleSubmit, and handleDelete
+
+### CSS is already done!
+
+The styles are in `src/pages/StoryDetail/StoryDetail.css` - you don't need to write CSS.
+
+---
+
 ## Task: Comment Section Component (Size: M)
 
 **Files:**
@@ -21,185 +36,105 @@ A component that shows comments on a story and lets users add/delete comments.
 
 ---
 
-## Step 1: Comment Service
+## Step 1: Comment Service (INCOMPLETE - NEEDS YOUR CODE)
 
 **File:** `src/services/commentService.js`
 
-### Functions to Implement
+### Current State:
+
+```javascript
+export const getCommentsByStory = async (storyId) => {
+  // TODO: GET /stories/:storyId/comments  <-- EMPTY, needs code
+};
+```
+
+### What You Need to Write:
 
 ```javascript
 // Get all comments for a story
 export const getCommentsByStory = async (storyId) => {
-  // GET /stories/:storyId/comments
-  // Return response.data
+  const res = await api.get(`/stories/${storyId}/comments`);
+  return res.data;
 };
 
 // Create a new comment
 export const createComment = async (storyId, commentData) => {
-  // POST /stories/:storyId/comments
-  // Send { content: commentData.content }
-  // Return response.data
-};
+  const res = await api.post(`/stories/${storyId}/comments`, commentData);
+  return res.data;
+# Tito's Tasks - Comment Section (Frontend)
 
-// Delete a comment
-export const deleteComment = async (commentId) => {
-  // DELETE /comments/:commentId
-  // Return response.data
-};
-```
+## Status: INCOMPLETE — implement yourself
 
-### Testing the Service
+You're responsible for implementing the comment feature end-to-end on the frontend. The codebase currently contains a working implementation, but this task must be completed by you so you show participation.
 
-```javascript
-// In browser console (after import):
-const comments = await getCommentsByStory("some-story-id");
-console.log(comments);
-```
+Total time: 2-3 hours
 
 ---
 
-## Step 2: Comment Section Component
+## Goal
+Implement comment fetching, creation, and deletion for story pages using the existing backend routes.
 
-**File:** `src/components/CommentSection.jsx`
+Files to implement:
+- `src/services/commentService.js`
+- `src/components/CommentSection.jsx`
 
-### State You Need
+## Required API functions (service)
+Implement these three functions in `src/services/commentService.js`:
 
-```javascript
-const [comments, setComments] = useState([]);
-const [newComment, setNewComment] = useState("");
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState(null);
+1. `getCommentsByStory(storyId)` — GET `/stories/:storyId/comments` → return `res.data`
+2. `createComment(storyId, commentData)` — POST `/stories/:storyId/comments` → return `res.data`
+3. `deleteComment(commentId)` — DELETE `/comments/:commentId` → return `res.data`
+
+Example (pseudocode):
 ```
 
-### Fetch Comments on Mount
+const res = await api.get(`/stories/${storyId}/comments`)
+return res.data
 
-```javascript
+```
+
+## Component behavior (`src/components/CommentSection.jsx`)
+
+1. On mount (or when `storyId` changes) fetch comments and show loading state.
+2. Display comments (author username, date, content). If none, show "No comments yet".
+3. If the user is authenticated, show a textarea + Post button. Posting should call `createComment`, prepend the returned comment to the comments array, and clear the input.
+4. Show a Delete button only on comments authored by the current user. Deleting should call `deleteComment` and remove the comment from state.
+
+Pseudocode examples:
+```
+
 useEffect(() => {
-  const fetchComments = async () => {
-    setLoading(true);
-    try {
-      const data = await getCommentsByStory(storyId);
-      setComments(data);
-    } catch (err) {
-      setError(err.response?.data?.message || "Failed to load comments");
-    } finally {
-      setLoading(false);
-    }
-  };
+setLoading(true)
+try { setComments(await getCommentsByStory(storyId)) }
+finally { setLoading(false) }
+}, [storyId])
 
-  fetchComments();
-}, [storyId]);
-```
-
-### Handle Submit
-
-```javascript
 const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!newComment.trim()) return;
-
-  try {
-    const comment = await createComment(storyId, { content: newComment });
-    setComments([...comments, comment]); // or [comment, ...comments] for newest first
-    setNewComment("");
-  } catch (err) {
-    setError(err.response?.data?.message || "Failed to add comment");
-  }
-};
-```
-
-### Handle Delete
-
-```javascript
-const handleDelete = async (commentId) => {
-  try {
-    await deleteComment(commentId);
-    setComments(comments.filter((c) => c._id !== commentId));
-  } catch (err) {
-    setError(err.response?.data?.message || "Failed to delete comment");
-  }
-};
-```
-
----
-
-## Component Breakdown
-
-### Comment Form (only for logged-in users)
-
-```jsx
-{
-  isAuthenticated ? (
-    <form onSubmit={handleSubmit}>
-      <textarea
-        value={newComment}
-        onChange={(e) => setNewComment(e.target.value)}
-        placeholder="Write a comment..."
-      />
-      <button type="submit" disabled={!newComment.trim()}>
-        Post Comment
-      </button>
-    </form>
-  ) : (
-    <p>Log in to leave a comment.</p>
-  );
+e.preventDefault()
+if (!newComment.trim()) return
+const comment = await createComment(storyId, { content: newComment })
+setComments([comment, ...comments])
 }
-```
 
-### Comments List
-
-```jsx
-{
-  comments.map((comment) => (
-    <div key={comment._id} className="comment">
-      <span>{comment.author?.username}</span>
-      <p>{comment.content}</p>
-
-      {/* Only show delete for own comments */}
-      {user?._id === comment.author?._id && (
-        <button onClick={() => handleDelete(comment._id)}>Delete</button>
-      )}
-    </div>
-  ));
+const handleDelete = async (id) => {
+await deleteComment(id)
+setComments(comments.filter(c => c.\_id !== id))
 }
+
 ```
 
----
-
-## Checklist
-
-### Comment Service
-
-- [ ] `getCommentsByStory` returns array of comments
-- [ ] `createComment` creates and returns new comment
-- [ ] `deleteComment` removes comment
-
-### Comment Section Component
-
-- [ ] Loads comments when story page opens
-- [ ] Shows loading state while fetching
-- [ ] Displays all comments with author and content
-- [ ] Form appears for logged-in users
-- [ ] New comment appears after posting
-- [ ] Delete button only shows for own comments
-- [ ] Delete removes comment from list
+## Acceptance criteria
+- Comments load when opening a story page (or show a clear empty state).
+- Authenticated users can post comments; the new comment appears immediately.
+- Users can delete only their own comments and the list updates after deletion.
+- Errors show a brief message (e.g. `Failed to load comments`).
 
 ---
 
-## Testing
+## How we'll validate
+1. Open a story page — comments load.
+2. Login as a user and post a comment — it appears.
+3. Delete your comment — it disappears.
 
-1. Open a story page
-2. Check comments load (or show "No comments yet")
-3. Log in and post a comment
-4. Verify it appears in the list
-5. Delete your comment
-6. Try to delete someone else's comment (should not have delete button)
-
----
-
-## Tips
-
-- The `storyId` comes as a prop: `function CommentSection({ storyId })`
-- Use `?.` optional chaining: `comment.author?.username`
-- Add new comments to the beginning of array for "newest first"
-- Check DevTools Network tab if API calls fail
+If Tito completes this, update the checklist and mark it done.
+```

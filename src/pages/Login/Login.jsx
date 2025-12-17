@@ -27,7 +27,7 @@ function Login() {
 
     try {
       await login({ email, password });
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
@@ -37,9 +37,8 @@ function Login() {
 
   return (
     <div className="auth-page">
+      <h1 className="auth-title">Login</h1>
       <div className="auth-card">
-        <h1 className="auth-title">Login</h1>
-
         {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">

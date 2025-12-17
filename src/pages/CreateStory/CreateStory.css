@@ -1,3 +1,10 @@
+.create-story-form .btn {
+  width: auto;
+  min-width: 80px;
+  padding: 10px 32px;
+  font-size: 0.75rem;
+  text-align: center;
+}
 .create-story-page {
   max-width: 600px;
 }
@@ -45,13 +52,16 @@
   margin-top: var(--space-xs);
 }
 
+
 .form-actions {
   display: flex;
   gap: var(--space-md);
   justify-content: flex-end;
+  margin-right: 1rem;
 }
 
-.create-story-form .btn {
-  width: auto;
-  align-self: center;
-}
+
+
+/* Make the cancel button more compact */
+
+

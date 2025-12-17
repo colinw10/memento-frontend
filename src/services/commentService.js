@@ -7,35 +7,20 @@
 
 import api from "./api";
 
-// TODO: Get all comments for a story
-// PSEUDOCODE:
-// 1. Accept storyId as parameter
-// 2. Make GET request to `/stories/${storyId}/comments`
-// 3. Return response.data (array of comments)
-
+// Get all comments for a story
 export const getCommentsByStory = async (storyId) => {
-  // TODO: GET /stories/:storyId/comments
-  // TODO: Return response.data
+  const res = await api.get(`/stories/${storyId}/comments`);
+  return res.data;
 };
 
-// TODO: Create a new comment
-// PSEUDOCODE:
-// 1. Accept storyId and { content } as parameters
-// 2. Make POST request to `/stories/${storyId}/comments` with content
-// 3. Return response.data (the new comment)
-
+// Create a new comment
 export const createComment = async (storyId, commentData) => {
-  // TODO: POST /stories/:storyId/comments
-  // TODO: Return response.data
+  const res = await api.post(`/stories/${storyId}/comments`, commentData);
+  return res.data;
 };
 
-// TODO: Delete a comment
-// PSEUDOCODE:
-// 1. Accept commentId as parameter
-// 2. Make DELETE request to `/comments/${commentId}`
-// 3. Return response.data
-
+// Delete a comment
 export const deleteComment = async (commentId) => {
-  // TODO: DELETE /comments/:commentId
-  // TODO: Return response.data
+  const res = await api.delete(`/comments/${commentId}`);
+  return res.data;
 };
