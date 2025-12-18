@@ -49,6 +49,7 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
   letter-spacing: 4px;
+  transition: all 0.4s ease;
 }
 
 @media (min-width: 768px) {
@@ -63,7 +64,16 @@
 }
 
 .navbar-logo:hover {
-  color: var(--color-text-secondary);
+  background: linear-gradient(140deg, #00d4ff 0%, #ffffff 50%, #00d4ff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.4));
+}
+
+@media (min-width: 768px) {
+  .navbar-logo:hover {
+    /* No extra spacing on hover */
+  }
 }
 
 .navbar-links {

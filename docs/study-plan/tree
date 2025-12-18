@@ -1,0 +1,151 @@
+memento-frontend/
+├── index.html                          (entry HTML, mounts )
+├── package.json                        (dependencies, scripts)
+├── vite.config.js                      (Vite configuration)
+│
+├── src/
+│   ├── main.jsx                        (entry point)
+│   │   └── renders: <BrowserRouter> → <AuthProvider> → <App />
+│   │
+│   ├── App.jsx
+│   │   └── uses: [useLocation]
+│   │   └── sets up: [Routes, conditional Navbar]
+│   │   └── ROUTES:
+│   │       ├── /              → <Landing />
+│   │       ├── /home          → <ProtectedRoute><Home /></ProtectedRoute>
+│   │       ├── /login         → <Login />
+│   │       ├── /signup        → <Signup />
+│   │       ├── /story/:id     → <StoryDetail />
+│   │       ├── /story/:id/edit → <ProtectedRoute><CreateStory /></ProtectedRoute>
+│   │       └── /create        → <ProtectedRoute><CreateStory /></ProtectedRoute>
+│   │
+│   ├── context/
+│   │   └── AuthContext.jsx
+│   │       └── provides STATE: { user, loading, error, isAuthenticated }
+│   │       └── provides FUNCTIONS: { login, signup, logout }
+│   │       └── exports: useAuth() hook, AuthProvider component
+│   │       └── on mount: verifies token via GET /api/auth/verify
+│   │
+│   ├── components/
+│   │   ├── ProtectedRoute.jsx
+│   │   │   └── receives: { children }
+│   │   │   └── uses: [useAuth]
+│   │   │   └── renders: children if authenticated, <Navigate to="/login"> otherwise
+│   │   │
+│   │   ├── CommentSection.jsx
+│   │   │   └── receives: { storyId }
+│   │   │   └── uses: [useState, useEffect, useAuth]
+│   │   │   └── state: { comments, newComment, loading, error }
+│   │   │   └── renders: comment form (if auth), comments list
+│   │   │   └── calls: getCommentsByStory, createComment, deleteComment
+│   │   │
+│   │   ├── Navbar/
+│   │   │   ├── Navbar.jsx
+│   │   │   │   └── receives: none
+│   │   │   │   └── uses: [useAuth, useLocation, useNavigate]
+│   │   │   │   └── renders: logo, nav links (Feed/Write or Login/Signup), user card, logout
+│   │   │   └── Navbar.css
+│   │   │
+│   │   └── StoryCard/
+│   │       ├── StoryCard.jsx
+│   │       │   └── receives: { story, onLikeUpdate, index }
+│   │       │   └── uses: [useAuth]
+│   │       │   └── renders: author info, title, excerpt, like button, comment count
+│   │       │   └── calls: toggleLike
+│   │       └── StoryCard.css
+│   │
+│   ├── pages/
+│   │   ├── Landing/
+│   │   │   ├── Landing.jsx
+│   │   │   │   └── receives: none
+│   │   │   │   └── uses: [@react-three/fiber Canvas, @react-three/drei]
+│   │   │   │   └── renders: 3D particle field (Sparkles, Stars, Float), title, auth links
+│   │   │   └── Landing.css
+│   │   │
+│   │   ├── Home/
+│   │   │   ├── Home.jsx
+│   │   │   │   └── receives: none
+│   │   │   │   └── uses: [useState, useEffect, useAuth]
+│   │   │   │   └── fetches: getAllStories()
+│   │   │   │   └── renders: <StoryCard> list, empty state
+│   │   │   │   └── handles: like updates via handleLikeUpdate()
+│   │   └── Home.css
+│   │   │
+│   │   ├── Login/
+│   │   │   ├── Login.jsx
+│   │   │   │   └── receives: none
+│   │   │   │   └── uses: [useState, useAuth, useNavigate]
+│   │   │   │   └── state: { email, password, error, loading }
+│   │   │   │   └── handles: form submit → login({ email, password })
+│   │   │   │   └── redirects: /home on success
+│   │   │   └── Login.css
+│   │   │
+│   │   ├── Signup/
+│   │   │   ├── Signup.jsx
+│   │   │   │   └── receives: none
+│   │   │   │   └── uses: [useState, useAuth, useNavigate]
+│   │   │   │   └── state: { username, email, password, confirmPassword, error, loading }
+│   │   │   │   └── handles: form submit → signup({ username, email, password })
+│   │   │   │   └── validates: password match
+│   │   │   │   └── redirects: /home on success
+│   │   │   └── Signup.css
+│   │   │
+│   │   ├── StoryDetail/
+│   │   │   ├── StoryDetail.jsx
+│   │   │   │   └── receives: none (uses useParams for :id)
+│   │   │   │   └── uses: [useState, useEffect, useParams, useNavigate, useAuth]
+│   │   │   │   └── state: { story, comments, newComment, loading, error, showCommentModal }
+│   │   │   │   └── fetches: getStoryById, getCommentsByStory
+│   │   │   │   └── handles: like, delete story, add/delete comments
+│   │   │   │   └── renders: full story, author actions (edit/delete if owner), comments
+│   │   │   └── StoryDetail.css
+│   │   │
+│   │   └── CreateStory/
+│   │       ├── CreateStory.jsx
+│   │       │   └── receives: none (uses useParams for :id in edit mode)
+│   │       │   └── uses: [useState, useEffect, useNavigate, useParams, useAuth]
+│   │       │   └── state: { title, content, error, loading }
+│   │       │   └── modes: CREATE (no id) or EDIT (with :id param)
+│   │       │   └── fetches: getStoryById (edit mode only)
+│   │       │   └── handles: createStory() or updateStory()
+│   │       │   └── validates: author ownership in edit mode
+│   │       └── CreateStory.css
+│   │
+│   ├── services/
+│   │   ├── api.js                      (Axios instance with interceptors)
+│   │   │   └── baseURL: VITE_API_URL || http://localhost:3000/api
+│   │   │   └── request interceptor: attaches Bearer token from localStorage
+│   │   │   └── response interceptor: clears token on 401
+│   │   │
+│   │   ├── authService.js
+│   │   │   └── signup(userData)        → POST /api/auth/signup
+│   │   │   └── login(credentials)      → POST /api/auth/login
+│   │   │   └── verifyToken()           → GET  /api/auth/verify
+│   │   │
+│   │   ├── storyService.js
+│   │   │   └── getAllStories()         → GET    /api/stories
+│   │   │   └── getStoryById(id)        → GET    /api/stories/:id
+│   │   │   └── createStory(data)       → POST   /api/stories
+│   │   │   └── updateStory(id, data)   → PUT    /api/stories/:id
+│   │   │   └── deleteStory(id)         → DELETE /api/stories/:id
+│   │   │   └── toggleLike(id)          → PUT    /api/stories/:id/like
+│   │   │
+│   │   └── commentService.js
+│   │       └── getCommentsByStory(id)  → GET    /api/stories/:id/comments
+│   │       └── createComment(id, data) → POST   /api/stories/:id/comments
+│   │       └── deleteComment(id)       → DELETE /api/comments/:id
+│   │
+│   └── styles/
+│       ├── global.css                  (global styles, button styles, utilities)
+│       └── variables.css               (CSS custom properties: colors, fonts, spacing)
+│
+└── docs/
+    ├── TEAM-README.md
+    ├── TEAM_NOTES/
+    │   └── landing-update.md
+    └── team-plan/
+        ├── cristal.md
+        ├── pablo.md
+        ├── tito.md
+        └── pablo-crystal/
+            └── styling-updates.md (See <attachments> above for file contents. You may not need to search or read the file again.)
