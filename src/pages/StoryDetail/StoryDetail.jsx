@@ -43,9 +43,10 @@ function StoryDetail() {
   const fetchComments = async () => {
     try {
       const data = await getCommentsByStory(id);
-      setComments(data);
+      setComments(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Failed to load comments');
+      setComments([]);
     }
   };
 
@@ -74,12 +75,16 @@ function StoryDetail() {
     if (!newComment.trim()) return;
     
     try {
-      const comment = await createComment(id, { content: newComment });
-      setComments([comment, ...comments]);
+      const response = await createComment(id, { content: newComment });
+      console.log('Backend response:', response);
+      // Check if comment is nested in response
+      const comment = response.comment || response.data || response;
+      console.log('Comment data:', comment);
+      setComments(prev => [comment, ...(Array.isArray(prev) ? prev : [])]);
       setNewComment('');
       setShowCommentModal(false);
     } catch (err) {
-      console.error('Failed to post comment');
+      console.error('Failed to post comment:', err.response?.status, err.response?.data || err.message);
     }
   };
 
