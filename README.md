@@ -2,11 +2,43 @@
 
 Share your stories. Thread your moments.
 
-## Screenshot
+## Screenshots
 
-<!-- Add your app screenshot here -->
+### Landing Page (Desktop)
 
-![Memento Screenshot](https://i.ibb.co/S4VxncDZ/Screenshot-2025-12-17-at-8-22-44-PM-2.png)
+<!-- Save image as: screenshots/landing-desktop.png -->
+
+![Landing Page Desktop](./screenshots/landing-desktop.png)
+
+### Landing Page (Mobile)
+
+<!-- Save image as: screenshots/landing-mobile.png -->
+
+![Landing Page Mobile](./screenshots/landing-mobile.png)
+
+### App Feed
+
+<!-- Save image as: screenshots/app-feed.png -->
+
+![App Feed](./screenshots/app-feed.png)
+
+### Mobile Feed
+
+<!-- Save image as: screenshots/feed-mobile.png -->
+
+![Mobile Feed](./screenshots/feed-mobile.png)
+
+### Edit Story
+
+<!-- Save image as: screenshots/edit.png -->
+
+![Edit Story](./screenshots/edit.png)
+
+### Comments
+
+<!-- Save image as: screenshots/comment.png -->
+
+![Comments](./screenshots/comment.png)
 
 ## About
 
@@ -152,5 +184,3 @@ To run this project locally:
 - Tito Del Valle
 
 For team assignments and task details, see [docs/TEAM-README.md](docs/TEAM-README.md).
-
-![Memento Screenshot](https://i.ibb.co/8nLYdRXV/Screenshot-2025-12-17-at-8-25-32-PM-2.png)

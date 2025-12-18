@@ -22,6 +22,12 @@
   -webkit-text-fill-color: transparent;
 }
 
+@media (max-width: 600px) {
+  .create-story-title {
+    font-size: 2rem;
+  }
+}
+
 .create-story-form {
   display: flex;
   flex-direction: column;

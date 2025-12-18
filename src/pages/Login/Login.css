@@ -40,6 +40,15 @@
   animation: fadeInAuth 0.8s cubic-bezier(.4,0,.2,1) 0.1s forwards;
 }
 
+@media (max-width: 600px) {
+  .auth-title {
+    font-size: 2rem;
+  }
+  .auth-card {
+    padding: var(--space-lg);
+  }
+}
+
 @keyframes fadeInAuth {
   from {
     opacity: 0;

@@ -128,12 +128,14 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
   letter-spacing: 1px;
+  transition: all 0.3s ease;
 }
 
 .story-card-title-link:hover .story-card-title {
-  background: linear-gradient(140deg, #00eaff 0%, #e0cbff 50%, #ff3399 100%);
+  background: linear-gradient(140deg, #00d4ff 0%, #ffffff 50%, #00d4ff 100%);
   background-clip: text;
   -webkit-background-clip: text;
+  filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.4));
 }
 
 .story-card-excerpt {
@@ -175,7 +177,12 @@
 }
 
 .story-card-like.liked {
-  color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary-faded) !important;
+}
+
+.story-card-like.liked svg {
+  fill: none !important; /* Ensure no fill even when liked */
+  stroke: currentColor !important; /* Use the magenta text color for the outline */
 }
 
 .story-card-like:disabled {
@@ -193,6 +200,14 @@
 
 .story-card-comments:hover {
   color: var(--color-accent-primary);
+}
+
+.story-card-comments.has-comments {
+  color: var(--color-accent-primary-faded);
+}
+
+.story-card-comments.has-comments svg {
+  stroke: var(--color-accent-primary-faded);
 }
 
 .story-card-read-more {
