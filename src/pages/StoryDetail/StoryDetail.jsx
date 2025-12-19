@@ -5,7 +5,7 @@
  * Shows full story with comments section.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { getStoryById, deleteStory, toggleLike } from '../../services/storyService';
@@ -52,9 +52,24 @@ function StoryDetail() {
     }
   };
 
+  const heartRef = useRef();
+
+
   const handleLike = async () => {
     if (!isAuthenticated) return;
     try {
+      if (heartRef.current) {
+        heartRef.current.classList.remove('heart-animate');
+        // Force reflow to restart animation
+        void heartRef.current.offsetWidth;
+        heartRef.current.classList.add('heart-animate');
+        // Remove the class after animation ends
+        const removeClass = () => {
+          heartRef.current && heartRef.current.classList.remove('heart-animate');
+          heartRef.current && heartRef.current.removeEventListener('animationend', removeClass);
+        };
+        heartRef.current.addEventListener('animationend', removeClass);
+      }
       const updated = await toggleLike(id);
       setStory(updated);
     } catch (err) {
@@ -173,7 +188,7 @@ function StoryDetail() {
               disabled={!isAuthenticated}
               title="Like"
             >
-              <svg className="icon-svg icon-outline-only" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg ref={heartRef} className="icon-svg icon-outline-only" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
               </svg>
               <span className="count">{story.likes?.length || 0}</span>
