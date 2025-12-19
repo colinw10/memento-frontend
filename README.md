@@ -4,20 +4,20 @@ Share your stories. Thread your moments.
 
 ## Screenshots
 
-| Landing Page | Mobile Feed |
-|:---:|:---:|
+|                    Landing Page                     |                   Mobile Feed                    |
+| :-------------------------------------------------: | :----------------------------------------------: |
 | ![Landing Desktop](screenshots/landing-desktop.png) | ![Mobile Feed](screenshots/home-feed-mobile.png) |
 
-| Expanded Story Card | Story Detail |
-|:---:|:---:|
+|                  Expanded Story Card                  |                 Story Detail                 |
+| :---------------------------------------------------: | :------------------------------------------: |
 | ![Expanded Story Card](screenshots/dropdown-feed.png) | ![Story Detail](screenshots/view-mobile.png) |
 
-| Edit Story | Edit Comment |
-|:---:|:---:|
+|                 Edit Story                  |                     Edit Comment                     |
+| :-----------------------------------------: | :--------------------------------------------------: |
 | ![Edit Story](screenshots/edit-desktop.png) | ![Edit Comment](screenshots/edit-comment-mobile.png) |
 
-| Add Comment |
-|:---:|
+|               Add Comment               |
+| :-------------------------------------: |
 | ![Add Comment](screenshots/comment.png) |
 
 ## About
