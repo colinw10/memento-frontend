@@ -4,44 +4,21 @@ Share your stories. Thread your moments.
 
 ## Screenshots
 
-<table>
-  <tr>
-    <td align="center">
-      <img src="./screenshots/landing-desktop.png" alt="Landing Desktop" width="100%"/>
-      <br/><em>Landing Page</em>
-    </td>
-    <td align="center">
-      <img src="./screenshots/home-feed-mobile.png" alt="Mobile Feed" width="100%"/>
-      <br/><em>Mobile Feed</em>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="./screenshots/dropdown-feed.png" alt="Expanded Story Card" width="100%"/>
-      <br/><em>Expanded Story Card</em>
-    </td>
-    <td align="center">
-      <img src="./screenshots/view-mobile.png" alt="Story Detail" width="100%"/>
-      <br/><em>Story Detail</em>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="./screenshots/edit-desktop.png" alt="Edit Story" width="100%"/>
-      <br/><em>Edit Story</em>
-    </td>
-    <td align="center">
-      <img src="./screenshots/edit-comment-mobile.png" alt="Edit Comment" width="100%"/>
-      <br/><em>Edit Comment</em>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">
-      <img src="./screenshots/comment.png" alt="Add Comment" width="50%"/>
-      <br/><em>Add Comment</em>
-    </td>
-  </tr>
-</table>
+| Landing Page | Mobile Feed |
+|:---:|:---:|
+| ![Landing Desktop](screenshots/landing-desktop.png) | ![Mobile Feed](screenshots/home-feed-mobile.png) |
+
+| Expanded Story Card | Story Detail |
+|:---:|:---:|
+| ![Expanded Story Card](screenshots/dropdown-feed.png) | ![Story Detail](screenshots/view-mobile.png) |
+
+| Edit Story | Edit Comment |
+|:---:|:---:|
+| ![Edit Story](screenshots/edit-desktop.png) | ![Edit Comment](screenshots/edit-comment-mobile.png) |
+
+| Add Comment |
+|:---:|
+| ![Add Comment](screenshots/comment.png) |
 
 ## About
 
