@@ -4,41 +4,44 @@ Share your stories. Thread your moments.
 
 ## Screenshots
 
-### Landing Page (Desktop)
-
-<!-- Save image as: screenshots/landing-desktop.png -->
-
-![Landing Page Desktop](./screenshots/landing-desktop.png)
-
-### Landing Page (Mobile)
-
-<!-- Save image as: screenshots/landing-mobile.png -->
-
-![Landing Page Mobile](./screenshots/landing-mobile.png)
-
-### App Feed
-
-<!-- Save image as: screenshots/app-feed.png -->
-
-![App Feed](./screenshots/app-feed.png)
-
-### Mobile Feed
-
-<!-- Save image as: screenshots/feed-mobile.png -->
-
-![Mobile Feed](./screenshots/feed-mobile.png)
-
-### Edit Story
-
-<!-- Save image as: screenshots/edit.png -->
-
-![Edit Story](./screenshots/edit.png)
-
-### Comments
-
-<!-- Save image as: screenshots/comment.png -->
-
-![Comments](./screenshots/comment.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="./screenshots/landing-desktop.png" alt="Landing Desktop" width="100%"/>
+      <br/><em>Landing Page</em>
+    </td>
+    <td align="center">
+      <img src="./screenshots/home-feed-mobile.png" alt="Mobile Feed" width="100%"/>
+      <br/><em>Mobile Feed</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./screenshots/dropdown-feed.png" alt="Expanded Story Card" width="100%"/>
+      <br/><em>Expanded Story Card</em>
+    </td>
+    <td align="center">
+      <img src="./screenshots/view-mobile.png" alt="Story Detail" width="100%"/>
+      <br/><em>Story Detail</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./screenshots/edit-desktop.png" alt="Edit Story" width="100%"/>
+      <br/><em>Edit Story</em>
+    </td>
+    <td align="center">
+      <img src="./screenshots/edit-comment-mobile.png" alt="Edit Comment" width="100%"/>
+      <br/><em>Edit Comment</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <img src="./screenshots/comment.png" alt="Add Comment" width="50%"/>
+      <br/><em>Add Comment</em>
+    </td>
+  </tr>
+</table>
 
 ## About
 
