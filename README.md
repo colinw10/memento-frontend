@@ -2,11 +2,23 @@
 
 Share your stories. Thread your moments.
 
-## Screenshot
+## Screenshots
 
-<!-- Add your app screenshot here -->
+|                    Landing Page                     |                   Mobile Feed                    |
+| :-------------------------------------------------: | :----------------------------------------------: |
+| ![Landing Desktop](screenshots/landing-desktop.png) | ![Mobile Feed](screenshots/home-feed-mobile.png) |
 
-![Memento Screenshot](https://i.ibb.co/S4VxncDZ/Screenshot-2025-12-17-at-8-22-44-PM-2.png)
+|                  Expanded Story Card                  |                 Story Detail                 |
+| :---------------------------------------------------: | :------------------------------------------: |
+| ![Expanded Story Card](screenshots/dropdown-feed.png) | ![Story Detail](screenshots/view-mobile.png) |
+
+|                 Edit Story                  |                     Edit Comment                     |
+| :-----------------------------------------: | :--------------------------------------------------: |
+| ![Edit Story](screenshots/edit-desktop.png) | ![Edit Comment](screenshots/edit-comment-mobile.png) |
+
+|               Add Comment               |
+| :-------------------------------------: |
+| ![Add Comment](screenshots/comment.png) |
 
 ## About
 
@@ -152,5 +164,3 @@ To run this project locally:
 - Tito Del Valle
 
 For team assignments and task details, see [docs/TEAM-README.md](docs/TEAM-README.md).
-
-![Memento Screenshot](https://i.ibb.co/8nLYdRXV/Screenshot-2025-12-17-at-8-25-32-PM-2.png)

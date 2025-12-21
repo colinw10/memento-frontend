@@ -5,11 +5,11 @@
  * Shows full story with comments section.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { getStoryById, deleteStory, toggleLike } from '../../services/storyService';
-import { getCommentsByStory, createComment, deleteComment } from '../../services/commentService';
+import { getCommentsByStory, createComment, deleteComment, updateComment } from '../../services/commentService';
 import './StoryDetail.css';
 
 function StoryDetail() {
@@ -20,6 +20,8 @@ function StoryDetail() {
   const [story, setStory] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editContent, setEditContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showCommentModal, setShowCommentModal] = useState(false);
@@ -50,9 +52,24 @@ function StoryDetail() {
     }
   };
 
+  const heartRef = useRef();
+
+
   const handleLike = async () => {
     if (!isAuthenticated) return;
     try {
+      if (heartRef.current) {
+        heartRef.current.classList.remove('heart-animate');
+        // Force reflow to restart animation
+        void heartRef.current.offsetWidth;
+        heartRef.current.classList.add('heart-animate');
+        // Remove the class after animation ends
+        const removeClass = () => {
+          heartRef.current && heartRef.current.classList.remove('heart-animate');
+          heartRef.current && heartRef.current.removeEventListener('animationend', removeClass);
+        };
+        heartRef.current.addEventListener('animationend', removeClass);
+      }
       const updated = await toggleLike(id);
       setStory(updated);
     } catch (err) {
@@ -97,6 +114,28 @@ function StoryDetail() {
     }
   };
 
+  const startEditingComment = (comment) => {
+    setEditingCommentId(comment._id);
+    setEditContent(comment.content);
+  };
+
+  const cancelEditingComment = () => {
+    setEditingCommentId(null);
+    setEditContent('');
+  };
+
+  const handleUpdateComment = async (commentId) => {
+    if (!editContent.trim()) return;
+    try {
+      const updatedComment = await updateComment(commentId, editContent);
+      setComments(comments.map(c => c._id === commentId ? updatedComment : c));
+      setEditingCommentId(null);
+      setEditContent('');
+    } catch (err) {
+      console.error('Failed to update comment:', err);
+    }
+  };
+
   const openCommentModal = () => {
     if (!isAuthenticated) {
       navigate('/login');
@@ -119,6 +158,13 @@ function StoryDetail() {
 
   return (
     <div className="story-detail">
+      <Link to="/home" className="back-link">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="11 17 6 12 11 7"></polyline>
+          <polyline points="18 17 13 12 18 7"></polyline>
+        </svg>
+        Back to Feed
+      </Link>
       <article className="story-full">
         <header className="story-full-header">
           <h1 className="story-full-title">{story.title}</h1>
@@ -142,12 +188,14 @@ function StoryDetail() {
               disabled={!isAuthenticated}
               title="Like"
             >
-              <span className="icon">♥</span>
+              <svg ref={heartRef} className="icon-svg icon-outline-only" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
               <span className="count">{story.likes?.length || 0}</span>
             </button>
             
             <button 
-              className="icon-btn"
+              className={`icon-btn ${comments.length > 0 ? 'has-comments' : ''}`}
               onClick={openCommentModal}
               title="Comment"
             >
@@ -160,11 +208,11 @@ function StoryDetail() {
 
           {isAuthor && (
             <div className="story-actions">
-              <Link to={`/story/${id}/edit`} className="btn btn-secondary">
-                Edit
+              <Link to={`/story/${id}/edit`} className="ghost-btn edit">
+                <span>Edit</span>
               </Link>
-              <button onClick={handleDelete} className="btn btn-danger">
-                Delete
+              <button onClick={handleDelete} className="ghost-btn delete">
+                <span>Delete</span>
               </button>
             </div>
           )}
@@ -184,14 +232,39 @@ function StoryDetail() {
                     {new Date(comment.createdAt).toLocaleDateString()}
                   </span>
                 </div>
-                <p className="comment-content">{comment.content}</p>
-                {user?._id === comment.author?._id && (
-                  <button 
-                    onClick={() => handleDeleteComment(comment._id)}
-                    className="comment-delete"
-                  >
-                    Delete
-                  </button>
+                
+                {editingCommentId === comment._id ? (
+                  <div className="comment-edit-form">
+                    <textarea
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                      className="comment-edit-input"
+                      rows={3}
+                    />
+                    <div className="comment-edit-actions">
+                      <button onClick={() => handleUpdateComment(comment._id)} className="btn-text save">Save</button>
+                      <button onClick={cancelEditingComment} className="btn-text cancel">Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="comment-content">{comment.content}</p>
+                )}
+
+                {(user?._id === comment.author?._id || user?.id === comment.author?._id) && !editingCommentId && (
+                  <div className="comment-actions">
+                    <button 
+                      onClick={() => startEditingComment(comment)}
+                      className="comment-action-btn edit"
+                    >
+                      Edit
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteComment(comment._id)}
+                      className="comment-action-btn delete"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 )}
               </div>
             ))}

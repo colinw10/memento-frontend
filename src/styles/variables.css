@@ -7,7 +7,9 @@
   
   /* Accent colors */
   --color-accent-primary: #00d4ff;
+  --color-accent-primary-faded: rgba(0, 212, 255, 0.7);
   --color-accent-secondary: #ff006e;
+  --color-accent-secondary-faded: rgba(255, 0, 110, 0.7);
   --color-accent-tertiary: #8b5cf6;
   
   /* Text colors */

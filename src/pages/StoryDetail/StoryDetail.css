@@ -1,9 +1,64 @@
+.icon-btn .icon-svg.heart-animate {
+  animation: heart-pop-radiate 0.6s cubic-bezier(0.23, 1.12, 0.32, 1) 1;
+}
+
+@keyframes heart-pop-radiate {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px #00d4ff88);
+  }
+  20% {
+    transform: scale(1.5);
+    filter: drop-shadow(0 0 10px #ffd900cc);
+  }
+  40% {
+    transform: scale(0.85);
+    filter: drop-shadow(0 0 24px #ff006ff3);
+  }
+  60% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 1px #aa00ffd0);
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px #00d5ffdf);
+  }
+}
 .story-full {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   margin-bottom: var(--space-xl);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: rgba(0, 212, 255, 0.7); /* Faded blue */
+  margin-bottom: var(--space-md);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--color-accent-secondary); /* Magenta on hover */
+  text-decoration: none;
+}
+
+.back-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 600px) {
+  .story-full {
+    padding: var(--space-md);
+  }
+  .story-full-title {
+    font-size: 1.5rem;
+  }
 }
 
 .story-full-title {
@@ -76,7 +131,15 @@
 }
 
 .icon-btn.liked {
-  color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary-faded);
+}
+
+.icon-btn.has-comments {
+  color: var(--color-accent-primary-faded);
+}
+
+.icon-btn.has-comments .icon-svg {
+  stroke: var(--color-accent-primary-faded);
 }
 
 .icon-btn .icon {
@@ -94,24 +157,59 @@
 
 .story-actions {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-md);
+  align-items: center;
 }
 
-.story-actions .btn {
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  min-width: auto;
-}
-
-.btn-danger {
+.ghost-btn {
   background: transparent;
-  border: 1px solid var(--color-error);
-  color: var(--color-error);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 0 16px;
+  height: 24px;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  transform: skewX(-15deg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
-.btn-danger:hover {
-  background: var(--color-error);
-  color: white;
+/* Text remains skewed with the button for consistency */
+.ghost-btn > * {
+  transform: none;
+}
+
+.ghost-btn:hover {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
+  transform: skewX(-15deg) translateY(-1px);
+}
+
+.ghost-btn.edit:hover {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+.ghost-btn.edit {
+  border-color: rgba(0, 213, 255, 0.338);
+  color: rgba(0, 213, 255, 0.44);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.ghost-btn.delete:hover {
+  border-color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary);
+}
+.ghost-btn.delete {
+  border-color: rgba(239, 68, 68, 0.219);
+  color: rgba(239, 68, 173, 0.454);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .comments-section {
@@ -181,6 +279,83 @@
 .comment-content {
   color: var(--color-text-secondary);
   font-size: 0.9375rem;
+}
+
+.comment-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+  margin-top: var(--space-sm);
+}
+
+.comment-action-btn {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.comment-action-btn.edit {
+  color: var(--color-text-muted);
+}
+
+.comment-action-btn.edit:hover {
+  color: var(--color-accent-primary);
+}
+
+.comment-action-btn.delete {
+  color: var(--color-text-muted);
+}
+
+.comment-action-btn.delete:hover {
+  color: var(--color-error);
+}
+
+.comment-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.comment-edit-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  resize: vertical;
+}
+
+.comment-edit-input:focus {
+  outline: none;
+  border-color: var(--color-accent-primary);
+}
+
+.comment-edit-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-text.save {
+  color: var(--color-accent-primary);
+}
+
+.btn-text.cancel {
+  color: var(--color-text-muted);
 }
 
 .comment-delete {

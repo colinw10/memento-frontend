@@ -1,3 +1,23 @@
+.navbar-logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  background: linear-gradient(140deg, #00d4ff 0%, #cbb6fbf2 50%, #ff006e 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 4px;
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  text-shadow: none !important;
+  transition: background-position 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+.navbar-logo:hover {
+  background-position: 100% 50%;
+  text-shadow: none !important;
+}
 .navbar {
   background: var(--color-bg-secondary);
   border-bottom: 1px solid var(--color-border);
@@ -34,7 +54,7 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
-    padding: var(--space-lg) var(--space-lg) var(--space-sm) var(--space-lg); /* Reduced bottom padding */
+    padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-lg);
     margin: 0;
   }
 }
@@ -49,6 +69,7 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
   letter-spacing: 4px;
+  transition: all 0.4s ease;
 }
 
 @media (min-width: 768px) {
@@ -62,8 +83,21 @@
   }
 }
 
+
 .navbar-logo:hover {
-  color: var(--color-text-secondary);
+  background: linear-gradient(140deg, #00d4ff 0%, #cbb6fbf2 50%, #ff006e 100%);
+  background-size: 200% 200%;
+  background-position: 100% 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: none;
+  transition: background-position 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+@media (min-width: 768px) {
+  .navbar-logo:hover {
+    /* No extra spacing on hover */
+  }
 }
 
 .navbar-links {

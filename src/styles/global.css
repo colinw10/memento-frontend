@@ -25,7 +25,9 @@ select {
   border: 1.5px solid #0cb6e5;
   border-radius: 8px;
   font-size: 1.21rem;
-  min-width: 220px;
+  width: 100%;
+  min-width: 0; /* Allow shrinking below previous 220px */
+  max-width: 100%;
   min-height: 48px;
   box-shadow: 0 2px 8px #0cb6e544;
   padding: 0.2em 1.2em 0.2em 1.2em;
@@ -80,7 +82,9 @@ select {
   border: 1px solid #0cb6e5d9;
   border-radius: 8px;
   font-size: 1rem;
-  min-width: 220px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   min-height: 38px;
   box-shadow: 0 2px 8px #0cb6e544;
   padding: 0.2em 1.2em 0.2em 1.2em;
@@ -147,6 +151,19 @@ select:focus {
   max-width: 700px;
   margin: 0 auto;
   padding: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    max-width: 100%;
+    padding: var(--space-xl);
+  }
+}
+
+/* Utility: Force outline-only icons (no fill) */
+.icon-outline-only {
+  fill: none !important;
+  stroke: currentColor !important;
 }
 
 /* Button styles - Cyberpunk Glassy Style (Global) */

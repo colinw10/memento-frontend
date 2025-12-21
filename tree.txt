@@ -1,0 +1,62 @@
+.
+├── docs
+│   ├── study-plan
+│   │   └── tree
+│   ├── team-plan
+│   │   ├── pablo-crystal
+│   │   │   └── styling-updates.md
+│   │   ├── cristal.md
+│   │   ├── pablo.md
+│   │   └── tito.md
+│   └── TEAM-README.md
+├── src
+│   ├── components
+│   │   ├── Navbar
+│   │   │   ├── Navbar.css
+│   │   │   └── Navbar.jsx
+│   │   ├── StoryCard
+│   │   │   ├── StoryCard.css
+│   │   │   └── StoryCard.jsx
+│   │   ├── CommentSection.jsx
+│   │   └── ProtectedRoute.jsx
+│   ├── context
+│   │   └── AuthContext.jsx
+│   ├── pages
+│   │   ├── CreateStory
+│   │   │   ├── CreateStory.css
+│   │   │   └── CreateStory.jsx
+│   │   ├── Home
+│   │   │   ├── Home.css
+│   │   │   └── Home.jsx
+│   │   ├── Landing
+│   │   │   ├── Landing.css
+│   │   │   └── Landing.jsx
+│   │   ├── Login
+│   │   │   ├── Login.css
+│   │   │   └── Login.jsx
+│   │   ├── Signup
+│   │   │   ├── Signup.css
+│   │   │   └── Signup.jsx
+│   │   └── StoryDetail
+│   │       ├── StoryDetail.css
+│   │       └── StoryDetail.jsx
+│   ├── services
+│   │   ├── api.js
+│   │   ├── authService.js
+│   │   ├── commentService.js
+│   │   └── storyService.js
+│   ├── styles
+│   │   ├── global.css
+│   │   └── variables.css
+│   ├── App.jsx
+│   └── main.jsx
+├── study plan
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+├── temp_auth.js
+├── tree.txt
+└── vite.config.js
+
+20 directories, 40 files
