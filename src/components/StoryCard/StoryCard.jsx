@@ -6,11 +6,11 @@
  * Shows title, preview, author, likes, and comment count.
  */
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { toggleLike } from '../../services/storyService';
-import { createComment } from '../../services/commentService';
+import { createComment, getCommentsByStory } from '../../services/commentService';
 import './StoryCard.css';
 
 
@@ -20,6 +20,9 @@ function StoryCard({ story, onLikeUpdate, onCommentAdded }) {
   const heartRef = useRef();
   const [expanded, setExpanded] = useState(false);
   const [showCommentInput, setShowCommentInput] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -61,14 +64,34 @@ const handleLike = async () => {
     setShowCommentInput(!showCommentInput);
   };
 
+  const handleToggleComments = async (e) => {
+    e.preventDefault();
+    if (!showComments && comments.length === 0) {
+      setLoadingComments(true);
+      try {
+        const data = await getCommentsByStory(story._id);
+        setComments(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Failed to load comments:", err);
+      } finally {
+        setLoadingComments(false);
+      }
+    }
+    setShowComments(!showComments);
+  };
+
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!commentText.trim() || isSubmitting) return;
     setIsSubmitting(true);
     try {
-      await createComment(story._id, { content: commentText.trim() });
+      const newComment = await createComment(story._id, { content: commentText.trim() });
       setCommentText('');
       setShowCommentInput(false);
+      // Add new comment to local state (at the top)
+      setComments(prev => [newComment, ...prev]);
+      // Keep/expand the comments dropdown to show the new comment
+      setShowComments(true);
       if (onCommentAdded) onCommentAdded(story._id);
     } catch (err) {
       console.error("Failed to add comment:", err);
@@ -129,17 +152,61 @@ const handleLike = async () => {
           <span>{story.likes?.length || 0}</span>
         </button>
 
-        {/* Comment Count */}
+        {/* Comment Button */}
         <button 
           className={`story-card-comments ${story.commentCount > 0 ? 'has-comments' : ''}`}
           onClick={handleCommentClick}
+          title="Add comment"
         >
           <svg className="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           </svg>
-          <span>{story.commentCount || 0}</span>
+          <span>{story.commentCount || comments.length || 0}</span>
         </button>
+
+        {/* Toggle Comments Dropdown */}
+        {(story.commentCount > 0 || comments.length > 0) && (
+          <button 
+            className={`toggle-comments-btn ${showComments ? 'expanded' : ''}`}
+            onClick={handleToggleComments}
+            title={showComments ? "Hide comments" : "Show comments"}
+          >
+            <svg className="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span className="toggle-text">{showComments ? 'Hide' : 'View'}</span>
+            <svg className="expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        )}
       </div>
+
+      {/* Comments Dropdown */}
+      {showComments && (
+        <div className="comments-dropdown">
+          {loadingComments ? (
+            <p className="loading-comments">Loading comments...</p>
+          ) : comments.length > 0 ? (
+            <div className="comments-list-mini">
+              {comments.slice(0, 3).map(comment => (
+                <div key={comment._id} className="comment-mini">
+                  <span className="comment-mini-author">{comment.author?.username}</span>
+                  <p className="comment-mini-content">{comment.content}</p>
+                </div>
+              ))}
+              {comments.length > 3 && (
+                <Link to={`/story/${story._id}`} className="view-all-comments">
+                  View all {comments.length} comments
+                </Link>
+              )}
+            </div>
+          ) : (
+            <p className="no-comments-mini">No comments yet</p>
+          )}
+        </div>
+      )}
 
       {showCommentInput && (
         <form onSubmit={handleCommentSubmit} className="comment-form">

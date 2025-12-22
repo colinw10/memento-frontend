@@ -8,13 +8,15 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getCommentsByStory, createComment, deleteComment } from '../services/commentService';
+import { getCommentsByStory, createComment, deleteComment, updateComment } from '../services/commentService';
 
 function CommentSection({ storyId }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [editingId, setEditingId] = useState(null);
+  const [editContent, setEditContent] = useState('');
 
   // Get auth state
   const { user, isAuthenticated } = useAuth();
@@ -57,6 +59,32 @@ function CommentSection({ storyId }) {
       setComments(comments.filter(c => c._id !== commentId));
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete comment');
+    }
+  };
+
+  const handleEdit = (comment) => {
+    setEditingId(comment._id);
+    setEditContent(comment.content);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditContent('');
+  };
+
+  const handleSaveEdit = async (commentId) => {
+    if (!editContent.trim()) return;
+    
+    try {
+      const updatedComment = await updateComment(commentId, editContent);
+      setComments(comments.map(c => 
+        c._id === commentId ? { ...c, content: updatedComment.content || editContent } : c
+      ));
+      setEditingId(null);
+      setEditContent('');
+      setError(null);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to update comment');
     }
   };
 
@@ -105,16 +133,52 @@ function CommentSection({ storyId }) {
                   {new Date(comment.createdAt).toLocaleDateString()}
                 </span>
               </div>
-              <p className="comment-content">{comment.content}</p>
               
-              {/* Delete button - only show for comment author */}
-              {user?._id === comment.author?._id && (
-                <button 
-                  className="delete-comment-btn"
-                  onClick={() => handleDelete(comment._id)}
-                >
-                  Delete
-                </button>
+              {editingId === comment._id ? (
+                <div className="comment-edit">
+                  <textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    rows={3}
+                  />
+                  <div className="comment-edit-actions">
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => handleSaveEdit(comment._id)}
+                      disabled={!editContent.trim()}
+                    >
+                      Save
+                    </button>
+                    <button 
+                      className="btn btn-secondary"
+                      onClick={handleCancelEdit}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <p className="comment-content">{comment.content}</p>
+                  
+                  {/* Edit/Delete buttons - only show for comment author */}
+                  {user?._id === comment.author?._id && (
+                    <div className="comment-actions">
+                      <button 
+                        className="edit-comment-btn"
+                        onClick={() => handleEdit(comment)}
+                      >
+                        Edit
+                      </button>
+                      <button 
+                        className="delete-comment-btn"
+                        onClick={() => handleDelete(comment._id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ))

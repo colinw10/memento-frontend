@@ -18,7 +18,7 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/feed" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/story/:id" element={<StoryDetail />} />

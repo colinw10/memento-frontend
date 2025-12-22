@@ -431,3 +431,58 @@
   justify-content: flex-end;
   margin-top: var(--space-md);
 }
+
+/* Comment Modal Styles */
+.comment-modal {
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-comments-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: var(--space-lg);
+  padding-right: var(--space-sm);
+}
+
+.modal-comments-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-comments-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.modal-comments-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.3);
+  border-radius: 3px;
+}
+
+.modal-comment {
+  padding: var(--space-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-comment:last-child {
+  border-bottom: none;
+}
+
+.no-comments-yet {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-lg);
+  font-style: italic;
+}
+
+.login-to-comment {
+  text-align: center;
+  padding: var(--space-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.login-to-comment p {
+  margin-bottom: var(--space-md);
+  color: var(--color-text-muted);
+}
