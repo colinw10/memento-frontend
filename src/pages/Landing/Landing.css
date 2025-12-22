@@ -67,8 +67,15 @@
 .landing-actions .btn {
   opacity: 0;
   animation: fadeInLandingBtn 4s cubic-bezier(.4,0,.2,1) 1.3s forwards;
-  width: 130px;
-  padding: 8px 0;
+  width: auto;
+  min-width: 60px;
+  padding: 10px 16px;
+}
+
+.landing-nav-icon {
+  width: 22px;
+  height: 22px;
+  transform: skewX(15deg);
 }
 
 @keyframes fadeInLanding {
@@ -127,4 +134,34 @@
   .landing-actions {
     margin-top: var(--space-md);
   }
+}
+
+/* Landing Header Navigation */
+.landing-header {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 2;
+  opacity: 0;
+  animation: fadeInLandingBtn 4s cubic-bezier(.4,0,.2,1) 1.6s forwards;
+}
+
+.landing-logout-btn {
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 0, 110, 0.4);
+  color: rgba(255, 0, 110, 0.8);
+  font-family: var(--font-display);
+  font-style: italic;
+  background: rgba(255, 0, 110, 0.05);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-radius: 4px;
+}
+
+.landing-logout-btn:hover {
+  border-color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary);
+  background: rgba(255, 0, 110, 0.15);
+  box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
 }

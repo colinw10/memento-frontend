@@ -305,3 +305,52 @@ select:focus {
   cursor: not-allowed;
   pointer-events: none;
 }
+
+/* Comment Actions */
+.comment-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.edit-comment-btn,
+.delete-comment-btn {
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-comment-btn:hover {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+
+.delete-comment-btn:hover {
+  border-color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary);
+}
+
+.comment-edit {
+  margin-top: var(--space-sm);
+}
+
+.comment-edit textarea {
+  width: 100%;
+  margin-bottom: var(--space-sm);
+}
+
+.comment-edit-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.comment-edit-actions .btn {
+  padding: 8px 16px;
+  min-width: 80px;
+  font-size: 0.85rem;
+}

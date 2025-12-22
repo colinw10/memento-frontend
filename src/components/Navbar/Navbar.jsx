@@ -22,12 +22,12 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/home" className="navbar-logo">Memento</Link>
+        <Link to="/" className="navbar-logo">Memento</Link>
         
         <div className="navbar-links">
           {isAuthenticated ? (
             <>
-              <Link to="/home" className={`navbar-link ${location.pathname === '/home' ? 'active' : ''}`}>
+              <Link to="/feed" className={`navbar-link ${location.pathname === '/feed' ? 'active' : ''}`}>
                 <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="12 2 2 7 12 12 22 7 12 2" />
                   <polyline points="2 17 12 22 22 17" />
