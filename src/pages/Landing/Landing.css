@@ -67,8 +67,8 @@
 .landing-actions .btn {
   opacity: 0;
   animation: fadeInLandingBtn 4s cubic-bezier(.4,0,.2,1) 1.3s forwards;
-  width: auto;
-  min-width: 60px;
+  width: 100px;
+  min-width: 100px;
   padding: 10px 16px;
 }
 
@@ -116,8 +116,9 @@
   }
   
   .landing-actions {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    gap: var(--space-md);
   }
 }
 
