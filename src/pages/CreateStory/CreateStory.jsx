@@ -36,7 +36,7 @@ function CreateStory() {
       // Check if the current user is the author
       const userId = user?.id || user?._id;
       if (user && story.author._id !== userId) {
-        navigate('/home');
+        navigate('/feed');
         return;
       }
 
@@ -114,7 +114,7 @@ function CreateStory() {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => navigate(isEditing ? `/story/${id}` : '/home')}
+            onClick={() => navigate(isEditing ? `/story/${id}` : '/feed')}
             disabled={loading}
           >
             Cancel

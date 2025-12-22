@@ -81,7 +81,7 @@ function StoryDetail() {
     if (!window.confirm('Are you sure you want to delete this story?')) return;
     try {
       await deleteStory(id);
-      navigate('/home');
+      navigate('/feed');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete story');
     }
@@ -137,10 +137,6 @@ function StoryDetail() {
   };
 
   const openCommentModal = () => {
-    if (!isAuthenticated) {
-      navigate('/login');
-      return;
-    }
     setShowCommentModal(true);
   };
 
@@ -158,7 +154,7 @@ function StoryDetail() {
 
   return (
     <div className="story-detail">
-      <Link to="/home" className="back-link">
+      <Link to="/feed" className="back-link">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="11 17 6 12 11 7"></polyline>
           <polyline points="18 17 13 12 18 7"></polyline>
@@ -275,9 +271,9 @@ function StoryDetail() {
       {/* Comment Modal */}
       {showCommentModal && (
         <div className="modal-overlay" onClick={() => setShowCommentModal(false)}>
-          <div className="modal" onClick={e => e.stopPropagation()}>
+          <div className="modal comment-modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h3>Add a Comment</h3>
+              <h3>Comments ({comments.length})</h3>
               <button 
                 className="modal-close" 
                 onClick={() => setShowCommentModal(false)}
@@ -285,29 +281,91 @@ function StoryDetail() {
                 ×
               </button>
             </div>
-            <form onSubmit={handleCommentSubmit} className="comment-form">
-              <textarea
-                className="input"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Share your thoughts..."
-                rows={4}
-                maxLength={2000}
-                autoFocus
-              />
-              <div className="modal-actions">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary"
-                  onClick={() => setShowCommentModal(false)}
-                >
-                  Cancel
-                </button>
-                <button type="submit" className="btn btn-primary">
-                  Post
-                </button>
+            
+            {/* Existing Comments */}
+            {comments.length > 0 && (
+              <div className="modal-comments-list">
+                {comments.map(comment => (
+                  <div key={comment._id} className="modal-comment">
+                    <div className="comment-header">
+                      <span className="comment-author">{comment.author?.username}</span>
+                      <span className="comment-date">
+                        {new Date(comment.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                    
+                    {editingCommentId === comment._id ? (
+                      <div className="comment-edit-form">
+                        <textarea
+                          value={editContent}
+                          onChange={(e) => setEditContent(e.target.value)}
+                          className="comment-edit-input"
+                          rows={3}
+                        />
+                        <div className="comment-edit-actions">
+                          <button onClick={() => handleUpdateComment(comment._id)} className="btn-text save">Save</button>
+                          <button onClick={cancelEditingComment} className="btn-text cancel">Cancel</button>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="comment-content">{comment.content}</p>
+                    )}
+
+                    {(user?._id === comment.author?._id || user?.id === comment.author?._id) && editingCommentId !== comment._id && (
+                      <div className="comment-actions">
+                        <button 
+                          onClick={() => startEditingComment(comment)}
+                          className="comment-action-btn edit"
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteComment(comment._id)}
+                          className="comment-action-btn delete"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-            </form>
+            )}
+            
+            {comments.length === 0 && (
+              <p className="no-comments-yet">No comments yet. Be the first to comment!</p>
+            )}
+
+            {/* Add Comment Form */}
+            {isAuthenticated ? (
+              <form onSubmit={handleCommentSubmit} className="comment-form">
+                <textarea
+                  className="input"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="Share your thoughts..."
+                  rows={3}
+                  maxLength={2000}
+                />
+                <div className="modal-actions">
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary"
+                    onClick={() => setShowCommentModal(false)}
+                  >
+                    Close
+                  </button>
+                  <button type="submit" className="btn btn-primary" disabled={!newComment.trim()}>
+                    Post
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="login-to-comment">
+                <p>Log in to add a comment</p>
+                <Link to="/login" className="btn btn-primary">Login</Link>
+              </div>
+            )}
           </div>
         </div>
       )}
